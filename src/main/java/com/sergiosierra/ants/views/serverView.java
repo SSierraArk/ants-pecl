@@ -27,90 +27,90 @@ public class serverView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        foodInEatingZoneText = new javax.swing.JTextField();
+        eatingZoneLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jLabel10 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        eatingZoneText = new javax.swing.JTextArea();
+        foodInEatingZoneLabel = new javax.swing.JLabel();
+        foodInStorageText = new javax.swing.JTextField();
+        antsRestingText = new javax.swing.JTextField();
+        foodInStorageLabel = new javax.swing.JLabel();
+        soldiersTrainingText = new javax.swing.JTextField();
+        antsTransportingFoodText = new javax.swing.JTextField();
+        antsInFoodStorageText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        soldiersFightingText = new javax.swing.JTextArea();
+        antsRestingLabel = new javax.swing.JLabel();
+        soldiersTrainingLabel = new javax.swing.JLabel();
+        antsTransportingFoodLabel = new javax.swing.JLabel();
+        antsInFoodStorageLabel = new javax.swing.JLabel();
+        antsCollectingFoodText = new javax.swing.JTextField();
+        soldiersFightingLabel = new javax.swing.JLabel();
+        antsCollectingFoodLabel = new javax.swing.JLabel();
+        InsideLabel = new javax.swing.JLabel();
+        OutsideLabel = new javax.swing.JLabel();
+        shelterLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        shelterText = new javax.swing.JTextArea();
+        pauseExecBtn = new javax.swing.JButton();
+        restartExecBtn = new javax.swing.JButton();
+        generateThreatBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Colony Lookup - server-side");
         setResizable(false);
 
-        jLabel11.setText("ZONA PARA COMER");
+        eatingZoneLabel.setText("ZONA PARA COMER");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        eatingZoneText.setColumns(20);
+        eatingZoneText.setRows(5);
+        jScrollPane2.setViewportView(eatingZoneText);
 
-        jLabel10.setText("Uds. comida (COMEDOR):");
+        foodInEatingZoneLabel.setText("Uds. comida (COMEDOR):");
 
-        jLabel9.setText("Uds. comida (ALMACÉN):");
+        foodInStorageLabel.setText("Uds. comida (ALMACÉN):");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        soldiersFightingText.setColumns(20);
+        soldiersFightingText.setRows(5);
+        jScrollPane1.setViewportView(soldiersFightingText);
 
-        jLabel8.setText("Hormigas descansando:");
+        antsRestingLabel.setText("Hormigas descansando:");
 
-        jLabel7.setText("Hormigas haciendo INSTRUCCIÓN:");
+        soldiersTrainingLabel.setText("Hormigas haciendo INSTRUCCIÓN:");
 
-        jLabel6.setText("Hormigas llevando comida a la ZONA PARA COMER:");
+        antsTransportingFoodLabel.setText("Hormigas llevando comida a la ZONA PARA COMER:");
 
-        jLabel5.setText("Hormigas en el ALMACÉN DE COMIDA:");
+        antsInFoodStorageLabel.setText("Hormigas en el ALMACÉN DE COMIDA:");
 
-        jLabel4.setText("Hormigas repeliendo un insecto invasor:");
+        soldiersFightingLabel.setText("Hormigas repeliendo un insecto invasor:");
 
-        jLabel3.setText("Hormigas buscando comida:");
+        antsCollectingFoodLabel.setText("Hormigas buscando comida:");
 
-        jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel2.setText("Interior de la colonia:");
+        InsideLabel.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        InsideLabel.setText("Interior de la colonia:");
 
-        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel1.setText("Exterior de la colonia:");
+        OutsideLabel.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        OutsideLabel.setText("Exterior de la colonia:");
 
-        jLabel12.setText("REFUGIO");
+        shelterLabel.setText("REFUGIO");
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        shelterText.setColumns(20);
+        shelterText.setRows(5);
+        jScrollPane3.setViewportView(shelterText);
 
-        jButton1.setText("Pausar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        pauseExecBtn.setText("Pausar");
+        pauseExecBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                pauseExecBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Reanudar");
+        restartExecBtn.setText("Reanudar");
 
-        jButton3.setText("Generar Amenaza Insecto Invasor");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        generateThreatBtn.setText("Generar Amenaza Insecto Invasor");
+        generateThreatBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                generateThreatBtnActionPerformed(evt);
             }
         });
 
@@ -121,66 +121,66 @@ public class serverView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(InsideLabel)
+                    .addComponent(OutsideLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
+                        .addComponent(shelterLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(pauseExecBtn)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)
+                                .addComponent(restartExecBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3))
+                                .addComponent(generateThreatBtn))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addComponent(eatingZoneLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(antsCollectingFoodLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1))
+                                .addComponent(antsCollectingFoodText))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(soldiersFightingLabel)
+                                    .addComponent(antsInFoodStorageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(antsInFoodStorageText, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addComponent(soldiersTrainingLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField4))
+                                .addComponent(soldiersTrainingText))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(antsTransportingFoodLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField3))
+                                .addComponent(antsTransportingFoodText))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(antsRestingLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(antsRestingText, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
+                                        .addComponent(foodInEatingZoneLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(foodInEatingZoneText, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
+                                        .addComponent(foodInStorageLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(foodInStorageText, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(31, 31, 31)))
                 .addGap(31, 31, 31))
         );
@@ -188,56 +188,55 @@ public class serverView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jLabel1)
+                .addComponent(OutsideLabel)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(antsCollectingFoodText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(antsCollectingFoodLabel))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addComponent(soldiersFightingLabel)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
-                .addComponent(jLabel2)
+                .addComponent(InsideLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(antsInFoodStorageLabel)
+                    .addComponent(antsInFoodStorageText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(antsTransportingFoodLabel)
+                    .addComponent(antsTransportingFoodText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(soldiersTrainingLabel)
+                    .addComponent(soldiersTrainingText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(foodInStorageLabel)
+                        .addComponent(foodInStorageText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(antsRestingLabel)
+                            .addComponent(antsRestingText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(foodInEatingZoneLabel)
+                    .addComponent(foodInEatingZoneText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
+                    .addComponent(eatingZoneLabel)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
+                    .addComponent(shelterLabel)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(pauseExecBtn)
+                    .addComponent(restartExecBtn)
+                    .addComponent(generateThreatBtn))
                 .addGap(41, 41, 41))
         );
 
@@ -255,13 +254,13 @@ public class serverView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void pauseExecBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseExecBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_pauseExecBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void generateThreatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateThreatBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_generateThreatBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,34 +298,34 @@ public class serverView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel InsideLabel;
+    private javax.swing.JLabel OutsideLabel;
+    private javax.swing.JLabel antsCollectingFoodLabel;
+    private javax.swing.JTextField antsCollectingFoodText;
+    private javax.swing.JLabel antsInFoodStorageLabel;
+    private javax.swing.JTextField antsInFoodStorageText;
+    private javax.swing.JLabel antsRestingLabel;
+    private javax.swing.JTextField antsRestingText;
+    private javax.swing.JLabel antsTransportingFoodLabel;
+    private javax.swing.JTextField antsTransportingFoodText;
+    private javax.swing.JLabel eatingZoneLabel;
+    private javax.swing.JTextArea eatingZoneText;
+    private javax.swing.JLabel foodInEatingZoneLabel;
+    private javax.swing.JTextField foodInEatingZoneText;
+    private javax.swing.JLabel foodInStorageLabel;
+    private javax.swing.JTextField foodInStorageText;
+    private javax.swing.JButton generateThreatBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JButton pauseExecBtn;
+    private javax.swing.JButton restartExecBtn;
+    private javax.swing.JLabel shelterLabel;
+    private javax.swing.JTextArea shelterText;
+    private javax.swing.JLabel soldiersFightingLabel;
+    private javax.swing.JTextArea soldiersFightingText;
+    private javax.swing.JLabel soldiersTrainingLabel;
+    private javax.swing.JTextField soldiersTrainingText;
     // End of variables declaration//GEN-END:variables
 }
