@@ -8,6 +8,6 @@ package com.sergiosierra.ants.models;
  *
  * @author ssierra
  */
-public class Ant extends Thread {
+public class SoldierAnt extends Ant {
     
 }
