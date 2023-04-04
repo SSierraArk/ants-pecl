@@ -9,5 +9,7 @@ package com.sergiosierra.ants.models;
  * @author ssierra
  */
 public class Ant extends Thread {
+   
+    protected int antId;
     
 }

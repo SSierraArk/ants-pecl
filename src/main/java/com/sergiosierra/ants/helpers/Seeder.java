@@ -25,7 +25,8 @@ public class Seeder {
         
         for(int i = 0; i < totalInstances; i++) {
         
-            workerList.add(new WorkerAnt());
+            workerList.add(new WorkerAnt(controller));
+            System.out.println(workerList.get(workerList.size() - 1).getAntId());
             Thread.sleep(800 + (int) (2700*Math.random()));
             if (workerList.size() % 3 == 0) {
             
