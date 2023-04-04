@@ -7,6 +7,7 @@ package com.sergiosierra.ants.control;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.WorkerAnt;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -26,6 +27,7 @@ public class ColonyController {
     
     Semaphore foodStorageSem =  new Semaphore(10, true);
     Lock foodMutexLock = new ReentrantLock();
+    Condition noFood = foodMutexLock.newCondition();
     
     
     public ColonyController(Colony colony) {
@@ -45,7 +47,7 @@ public class ColonyController {
             
             foodStorageSem.acquire();
             foodMutexLock.lock();
-            colony.getFoodStorage().add((WorkerAnt) Thread.currentThread());            
+            colony.getFoodStorage().add((WorkerAnt) Thread.currentThread());
             
         } catch (InterruptedException ex) {
         } finally {
@@ -65,6 +67,7 @@ public class ColonyController {
             foodMutexLock.lock();
             colony.getFoodStorage().add((WorkerAnt) Thread.currentThread());
             colony.setFoodCount(colony.getFoodCount() + amount);
+            noFood.signalAll();
 
         } catch (InterruptedException ex) {
         } finally {
@@ -96,6 +99,9 @@ public class ColonyController {
         try {
             
             foodMutexLock.lock();
+            while(colony.getFoodCount() < amount) {
+                noFood.await();
+            }
             colony.setFoodCount(colony.getFoodCount() - amount);
             colony.getFoodStorage().remove((WorkerAnt) Thread.currentThread());
             foodStorageSem.release();
