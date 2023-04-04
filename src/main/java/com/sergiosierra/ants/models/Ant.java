@@ -4,12 +4,15 @@
  */
 package com.sergiosierra.ants.models;
 
+import com.sergiosierra.ants.control.Controller;
+
 /**
  *
  * @author ssierra
  */
 public class Ant extends Thread {
    
+    protected Controller controller;
     protected int antId;
     
 }

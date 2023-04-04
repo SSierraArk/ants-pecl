@@ -5,6 +5,8 @@
 package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +18,7 @@ public class WorkerAnt extends Ant {
     
     public WorkerAnt(Controller controller) {
     
+        this.controller = controller;
         this.antId = controller.getWorkerList().size();
         
     }
@@ -23,7 +26,14 @@ public class WorkerAnt extends Ant {
     @Override
     public void run() {
     
-        
+        controller.colony().enterFoodStorage(1);
+        try {
+            sleep(3000 + (int) (100*Math.random()));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(WorkerAnt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        controller.colony().exitFoodStorage(1);
+
     
     }
 

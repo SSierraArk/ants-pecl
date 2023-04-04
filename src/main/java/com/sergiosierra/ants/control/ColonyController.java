@@ -28,6 +28,17 @@ public class ColonyController {
     Lock foodMutexLock = new ReentrantLock();
     
     
+    public ColonyController(Colony colony) {
+    
+        this.colony = colony;
+        
+    }
+
+    public Colony getColony() {
+        return colony;
+    }
+    
+    
     public void enterFoodStorage() {
    
         try {
@@ -57,7 +68,6 @@ public class ColonyController {
 
         } catch (InterruptedException ex) {
         } finally {
-        
             foodMutexLock.unlock();
         
         }
@@ -86,8 +96,8 @@ public class ColonyController {
         try {
             
             foodMutexLock.lock();
-            colony.getFoodStorage().remove((WorkerAnt) Thread.currentThread());
             colony.setFoodCount(colony.getFoodCount() - amount);
+            colony.getFoodStorage().remove((WorkerAnt) Thread.currentThread());
             foodStorageSem.release();
             
         } catch (Exception ie) {

@@ -5,6 +5,7 @@
 package com.sergiosierra.ants.control;
 
 import com.sergiosierra.ants.models.ChildAnt;
+import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
 import java.util.ArrayList;
@@ -19,8 +20,18 @@ public class Controller {
     private ArrayList<ChildAnt> childList = new ArrayList<>();
     private ArrayList<WorkerAnt> workerList = new ArrayList<>();
 
+    private ColonyController colonyController;
     
-    public Controller() {
+    public Controller(Colony colony) {
+        
+        colonyController = new ColonyController(colony);
+        
+    }
+    
+    public ColonyController colony() {
+    
+        return colonyController;
+    
     }
 
     public ArrayList<SoldierAnt> getSoldierList() {
