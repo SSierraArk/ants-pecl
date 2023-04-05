@@ -20,6 +20,7 @@ public class WorkerAnt extends Ant {
     
         this.controller = controller;
         this.antId = controller.getWorkerList().size();
+        controller.getWorkerList().add(this);
         
     }
     
@@ -32,6 +33,7 @@ public class WorkerAnt extends Ant {
         } catch (InterruptedException ex) {
             Logger.getLogger(WorkerAnt.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("Formiguiña " + this.getAntId());
         controller.colony().exitFoodStorage(1);
 
     

@@ -1,4 +1,4 @@
-package test.seeder;
+package seeder;
 
 
 import com.sergiosierra.ants.control.Controller;

@@ -10,4 +10,5 @@ package com.sergiosierra.ants.models;
  */
 public class SoldierAnt extends Ant {
     
+    
 }

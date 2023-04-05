@@ -4,6 +4,7 @@
  */
 package com.sergiosierra.ants.control;
 
+import com.sergiosierra.ants.models.Ant;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.WorkerAnt;
 import java.util.concurrent.Semaphore;
@@ -22,25 +23,34 @@ public class ColonyController {
     // Sync + comm mechanisms.
     
     Semaphore exitSem = new Semaphore(1, true);
-    Semaphore firstEntranceSem = new Semaphore(1, true);
-    Semaphore secondEntranceSem = new Semaphore(1, true);
+    // enterSem has two permits as there are two entrance gates.
+    Semaphore enterSem = new Semaphore(2, true); 
     
     Semaphore foodStorageSem =  new Semaphore(10, true);
     Lock foodMutexLock = new ReentrantLock();
     Condition noFood = foodMutexLock.newCondition();
     
-    
+    /**
+     *
+     * @param colony
+     */
     public ColonyController(Colony colony) {
     
         this.colony = colony;
         
     }
 
+    /**
+     *
+     * @return
+     */
     public Colony getColony() {
         return colony;
     }
     
-    
+    /**
+     *
+     */
     public void enterFoodStorage() {
    
         try {
@@ -59,6 +69,10 @@ public class ColonyController {
     
     };
     
+    /**
+     *
+     * @param amount
+     */
     public void enterFoodStorage(int amount) {
    
         try {
@@ -78,6 +92,9 @@ public class ColonyController {
     
     };
     
+    /**
+     *
+     */
     public void exitFoodStorage() {
         
         try {
@@ -94,6 +111,10 @@ public class ColonyController {
     
     };
     
+    /**
+     *
+     * @param amount
+     */
     public void exitFoodStorage(int amount) {
     
         try {
@@ -113,5 +134,33 @@ public class ColonyController {
         
     
     };
+    
+    public void enterColony() {
+    
+        
+    
+    }
+    
+    public void exitColony() {
+    
+        try {
+
+            exitSem.acquire();
+            Thread.sleep(100);
+            if(!colony.getOutside().contains((Ant) Thread.currentThread())) colony.getOutside().add((Ant) Thread.currentThread());
+            if(colony.getInside().contains((Ant) Thread.currentThread())) colony.getInside().remove((Ant) Thread.currentThread());
+
+            
+
+        } catch (InterruptedException ie) {
+        
+        } finally {
+            
+            exitSem.release();
+        
+        }
+        
+    
+    }
     
 }

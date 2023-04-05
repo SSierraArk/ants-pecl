@@ -1,4 +1,4 @@
-package test.seeder;
+package seeder;
 
 
 import com.sergiosierra.ants.control.Controller;
@@ -30,7 +30,7 @@ public class ControllerListener extends Thread {
         while (true) {
         
             try {
-                sleep(2000);
+                sleep(200);
             } catch (InterruptedException ex) {
                 Logger.getLogger(ControllerListener.class.getName()).log(Level.SEVERE, null, ex);
             }
