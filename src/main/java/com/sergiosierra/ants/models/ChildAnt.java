@@ -4,10 +4,20 @@
  */
 package com.sergiosierra.ants.models;
 
+import com.sergiosierra.ants.control.Controller;
+
 /**
  *
  * @author ssierra
  */
 public class ChildAnt extends Ant {
+    
+    public ChildAnt(Controller controller) {
+    
+        this.controller = controller;
+        this.antId = controller.ant().getChildList().size();
+        controller.ant().getChildList().add(this);
+    
+    }
     
 }

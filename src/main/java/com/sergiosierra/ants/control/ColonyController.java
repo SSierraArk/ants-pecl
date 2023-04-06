@@ -12,6 +12,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import com.sergiosierra.ants.helpers.Logger;
+import com.sergiosierra.ants.models.ChildAnt;
 
 /**
  *
@@ -183,5 +184,28 @@ public class ColonyController {
         
     
     }
+    
+    
+    public void enterShelter() {
+    
+        if(colony.getInside().contains((Ant) Thread.currentThread())) {
+        
+            colony.getShelter().add((ChildAnt) Thread.currentThread());
+
+        }
+            
+    
+    }
+    
+    public void exitShelter() {
+    
+        if(colony.getShelter().contains((ChildAnt) Thread.currentThread())) {
+        
+            colony.getShelter().remove((ChildAnt) Thread.currentThread());
+        
+        }
+    
+    }
+    
     
 }

@@ -8,7 +8,6 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
-import java.util.ArrayList;
 
 /**
  *
@@ -33,6 +32,18 @@ public class Controller {
     
         return new WorkerAnt(this);
         
+    }
+    
+    public SoldierAnt spawnSoldierAnt() {
+    
+        return new SoldierAnt(this);
+    
+    }
+    
+    public ChildAnt spawnChildAnt() {
+    
+        return new ChildAnt(this);
+    
     }
     
     

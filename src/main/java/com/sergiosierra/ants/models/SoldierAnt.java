@@ -4,11 +4,21 @@
  */
 package com.sergiosierra.ants.models;
 
+import com.sergiosierra.ants.control.Controller;
+
 /**
  *
  * @author ssierra
  */
 public class SoldierAnt extends Ant {
     
+    
+    public SoldierAnt(Controller controller) {
+    
+        this.controller = controller;
+        this.antId = controller.ant().getSoldierList().size();
+        controller.ant().getSoldierList().add(this);
+    
+    }
     
 }

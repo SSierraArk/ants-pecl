@@ -30,9 +30,9 @@ public class Seeder {
             Thread.sleep(800 + (int) (2700*Math.random()));
             if (workerList.size() % 3 == 0) {
             
-                soldierList.add(new SoldierAnt());
+                controller.spawnSoldierAnt();
                 Thread.sleep(800 + (int) (2700*Math.random()));
-                childList.add(new ChildAnt());
+                controller.spawnChildAnt();
                 Thread.sleep(800 + (int) (2700*Math.random()));
                 i = i + 2;
             
