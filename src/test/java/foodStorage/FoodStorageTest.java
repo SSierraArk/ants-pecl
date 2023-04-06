@@ -27,7 +27,7 @@ public class FoodStorageTest {
             } catch (InterruptedException ex) {
                 Logger.getLogger(FoodStorageTest.class.getName()).log(Level.SEVERE, null, ex);
             }
-            new WorkerAnt(controller).start();
+            controller.spawnWorkerAnt().start();
         
         }
         

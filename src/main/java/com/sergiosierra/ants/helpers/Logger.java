@@ -38,4 +38,34 @@ public class Logger {
         
     }
     
+    public static synchronized void syncPrintln(String str) {
+    
+        System.out.println(str);
+    
+    }
+    
+    public static synchronized void syncPrintln(String str, Boolean verbose) {
+    
+        Date now = new Date();
+        String format = "HH:mm:ss.SSS dd-MM-yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        String formattedContent = verbose ? sdf.format(now) + " - " + str : str;
+        
+        System.out.println(formattedContent);
+        
+    }
+    
+    public static void println(String str, Boolean verbose) {
+    
+        Date now = new Date();
+        String format = "HH:mm:ss.SSS dd-MM-yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        String formattedContent = verbose ? sdf.format(now) + " - " + str : str;
+        
+        System.out.println(formattedContent);
+        
+    }
+    
+    
+    
 }

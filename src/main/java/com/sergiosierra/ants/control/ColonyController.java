@@ -11,6 +11,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import com.sergiosierra.ants.helpers.Logger;
 
 /**
  *
@@ -137,6 +138,24 @@ public class ColonyController {
     
     public void enterColony() {
     
+        try {
+            enterSem.acquire();
+            Logger.println("Enter Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
+            Thread.sleep(100);
+            Logger.println("Woke up!" + Thread.currentThread().getName(), Boolean.TRUE);
+            if(!colony.getInside().contains((Ant) Thread.currentThread())) colony.getInside().add((Ant) Thread.currentThread());
+            if(colony.getOutside().contains((Ant) Thread.currentThread())) colony.getOutside().remove((Ant) Thread.currentThread());
+            Logger.println("Enter Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
+
+            
+        } catch (InterruptedException ex) {
+        } finally {
+        
+            
+            enterSem.release();
+
+            
+        }
         
     
     }
@@ -146,9 +165,11 @@ public class ColonyController {
         try {
 
             exitSem.acquire();
+            Logger.println("Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
             Thread.sleep(100);
             if(!colony.getOutside().contains((Ant) Thread.currentThread())) colony.getOutside().add((Ant) Thread.currentThread());
             if(colony.getInside().contains((Ant) Thread.currentThread())) colony.getInside().remove((Ant) Thread.currentThread());
+            Logger.println("Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
 
             
 

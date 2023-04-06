@@ -16,49 +16,37 @@ import java.util.ArrayList;
  */
 public class Controller {
     
-    private ArrayList<SoldierAnt> soldierList = new ArrayList<>();
-    private ArrayList<ChildAnt> childList = new ArrayList<>();
-    private ArrayList<WorkerAnt> workerList = new ArrayList<>();
 
     private ColonyController colonyController;
+    private AntController antController;
     
     public Controller(Colony colony) {
         
         colonyController = new ColonyController(colony);
+        antController = new AntController();
         
     }
+    
+    // Factory methods
+    
+    public WorkerAnt spawnWorkerAnt() {
+    
+        return new WorkerAnt(this);
+        
+    }
+    
     
     public ColonyController colony() {
     
         return colonyController;
     
     }
-
-    public ArrayList<SoldierAnt> getSoldierList() {
-        return soldierList;
-    }
-
-    public void setSoldierList(ArrayList<SoldierAnt> soldierList) {
-        this.soldierList = soldierList;
-    }
-
-    public ArrayList<ChildAnt> getChildList() {
-        return childList;
-    }
-
-    public void setChildList(ArrayList<ChildAnt> childList) {
-        this.childList = childList;
-    }
-
-    public ArrayList<WorkerAnt> getWorkerList() {
-        return workerList;
-    }
-
-    public void setWorkerList(ArrayList<WorkerAnt> workerList) {
-        this.workerList = workerList;
-    }
     
     
-
+    public AntController ant() {
+    
+        return antController;
+        
+    }
     
 }

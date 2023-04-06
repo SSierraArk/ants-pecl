@@ -18,14 +18,14 @@ public class Seeder {
     
     public static void seed(Controller controller, int totalInstances) throws InterruptedException {
     
-        ArrayList<ChildAnt> childList = controller.getChildList();
-        ArrayList<SoldierAnt> soldierList = controller.getSoldierList();
-        ArrayList<WorkerAnt> workerList = controller.getWorkerList();
+        ArrayList<ChildAnt> childList = controller.ant().getChildList();
+        ArrayList<SoldierAnt> soldierList = controller.ant().getSoldierList();
+        ArrayList<WorkerAnt> workerList = controller.ant().getWorkerList();
 
         
         for(int i = 0; i < totalInstances; i++) {
         
-            new WorkerAnt(controller);
+            controller.spawnWorkerAnt();
             System.out.println(workerList.get(workerList.size() - 1).getAntId());
             Thread.sleep(800 + (int) (2700*Math.random()));
             if (workerList.size() % 3 == 0) {
