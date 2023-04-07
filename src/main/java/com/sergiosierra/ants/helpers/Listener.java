@@ -4,10 +4,37 @@
  */
 package com.sergiosierra.ants.helpers;
 
+import com.sergiosierra.ants.models.Colony;
+import java.util.ArrayList;
+
 /**
  *
  * @author ssierra
  */
-public class Listener {
+public class Listener extends Thread {
     
+    Colony colony;
+    
+    public Listener(Colony colony) {
+    
+        this.colony = colony;
+    
+    }
+    
+    @Override
+    public void run() {
+
+        while(true) {
+        
+            try {
+                sleep(50);
+            } catch (InterruptedException e) {
+            }
+            System.out.println("Inside: " + colony.getInside());
+            System.out.println("Eating Zone: " + colony.getEatingZone());
+            System.out.println("Food count: " + colony.getEatingZoneFoodCount());
+            
+        }
+    
+    }
 }

@@ -24,4 +24,20 @@ public class Ant extends Thread {
         this.holdedItems = holdedItems;
     }
     
+    public void dropItems(int amount) {
+    
+        if(holdedItems >= amount){
+        
+            holdedItems -= amount;
+        
+        }
+    
+    }
+    
+    public void holdItems(int amount) {
+    
+        holdedItems += amount;
+    
+    }
+    
 }

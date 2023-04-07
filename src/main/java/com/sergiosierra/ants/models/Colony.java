@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Colony {
     
     private int foodCount = 0;
+    private int eatingZoneFoodCount = 0;
     
     // Zones that are specific to a certain kind of ant.
     private ArrayList<WorkerAnt> foodStorage = new ArrayList<>();
@@ -24,6 +25,14 @@ public class Colony {
     private ArrayList<Ant> restingZone = new ArrayList<>();
     private ArrayList<Ant> outside = new ArrayList<>();
     private ArrayList<Ant> inside = new ArrayList<>();
+
+    public int getEatingZoneFoodCount() {
+        return eatingZoneFoodCount;
+    }
+
+    public void setEatingZoneFoodCount(int eatingZoneFoodCount) {
+        this.eatingZoneFoodCount = eatingZoneFoodCount;
+    }
 
     public int getFoodCount() {
         return foodCount;

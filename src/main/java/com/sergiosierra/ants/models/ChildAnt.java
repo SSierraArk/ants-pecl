@@ -24,4 +24,11 @@ public class ChildAnt extends Ant {
         return "HC" + String.format("%04d", antId);
     }
     
+    @Override
+    public String toString() {
+    
+        return getAntId();
+    
+    }
+    
 }

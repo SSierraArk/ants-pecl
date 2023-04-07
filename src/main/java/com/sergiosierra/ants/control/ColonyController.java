@@ -141,12 +141,12 @@ public class ColonyController {
     
         try {
             enterSem.acquire();
-            Logger.println("Enter Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
+            //Logger.println("Enter Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
             Thread.sleep(100);
-            Logger.println("Woke up!" + Thread.currentThread().getName(), Boolean.TRUE);
+            //Logger.println("Woke up!" + Thread.currentThread().getName(), Boolean.TRUE);
             if(!colony.getInside().contains((Ant) Thread.currentThread())) colony.getInside().add((Ant) Thread.currentThread());
             if(colony.getOutside().contains((Ant) Thread.currentThread())) colony.getOutside().remove((Ant) Thread.currentThread());
-            Logger.println("Enter Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
+            //Logger.println("Enter Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
 
             
         } catch (InterruptedException ex) {
@@ -166,11 +166,11 @@ public class ColonyController {
         try {
 
             exitSem.acquire();
-            Logger.println("Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
+            //Logger.println("Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
             Thread.sleep(100);
             if(!colony.getOutside().contains((Ant) Thread.currentThread())) colony.getOutside().add((Ant) Thread.currentThread());
             if(colony.getInside().contains((Ant) Thread.currentThread())) colony.getInside().remove((Ant) Thread.currentThread());
-            Logger.println("Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
+            //Logger.println("Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
 
             
 
@@ -224,6 +224,33 @@ public class ColonyController {
             colony.getEatingZone().remove((Ant) Thread.currentThread());
         
         }
+    
+    }
+    
+    public synchronized void eat(int amount) throws InterruptedException {
+        
+        // Check whether there is enough food available at the
+        // eating zone.
+        while(colony.getEatingZoneFoodCount() < amount) {
+        
+            wait();
+
+        }
+    
+        colony.setEatingZoneFoodCount(
+            colony.getEatingZoneFoodCount() - amount
+        );
+    
+    }
+    
+    public synchronized void enterEatingZone(int amount) {
+    
+        enterEatingZone();
+        // Add amount of food to the eating zone.
+        colony.setEatingZoneFoodCount(
+            colony.getEatingZoneFoodCount() + amount
+        );
+        notifyAll();
     
     }
     
