@@ -21,4 +21,8 @@ public class SoldierAnt extends Ant {
     
     }
     
+    public String getAntId() {
+        return "HS" + String.format("%04d", antId);
+    }
+    
 }

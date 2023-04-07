@@ -20,4 +20,8 @@ public class ChildAnt extends Ant {
     
     }
     
+    public String getAntId() {
+        return "HC" + String.format("%04d", antId);
+    }
+    
 }

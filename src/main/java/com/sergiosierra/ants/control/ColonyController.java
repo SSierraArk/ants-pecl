@@ -207,5 +207,45 @@ public class ColonyController {
     
     }
     
+    public void enterEatingZone() {
+    
+        if(colony.getInside().contains((Ant) Thread.currentThread())) {
+        
+            colony.getEatingZone().add((Ant) Thread.currentThread());
+            
+        }
+    
+    }
+    
+    public void exitEatingZone() {
+    
+        if(colony.getEatingZone().contains((Ant) Thread.currentThread())) {
+        
+            colony.getEatingZone().remove((Ant) Thread.currentThread());
+        
+        }
+    
+    }
+    
+    public void enterRestingZone() {
+    
+        if(colony.getInside().contains((Ant) Thread.currentThread())) {
+        
+            colony.getEatingZone().add((ChildAnt) Thread.currentThread());
+        
+        }
+    
+    }
+    
+    public void exitRestingZone() {
+    
+        if(colony.getRestingZone().contains((ChildAnt) Thread.currentThread())) {
+        
+            colony.getRestingZone().remove((ChildAnt) Thread.currentThread());
+        
+        }
+    
+    }
+    
     
 }

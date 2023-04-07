@@ -14,5 +14,14 @@ public class Ant extends Thread {
    
     protected Controller controller;
     protected int antId;
+    protected int holdedItems = 0;
+
+    public int getHoldedItems() {
+        return holdedItems;
+    }
+
+    public void setHoldedItems(int holdedItems) {
+        this.holdedItems = holdedItems;
+    }
     
 }
