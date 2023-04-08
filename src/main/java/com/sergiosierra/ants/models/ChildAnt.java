@@ -5,6 +5,9 @@
 package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
+import com.sergiosierra.ants.exceptions.ColonyAccessException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +20,37 @@ public class ChildAnt extends Ant {
         this.controller = controller;
         this.antId = controller.ant().getChildList().size();
         controller.ant().getChildList().add(this);
+    
+    }
+    
+    @Override
+    public void run() {
+    
+        while(true) {
+        
+            try {
+            
+                controller.colony().enterEatingZone(); // Enters eating zone
+                controller.colony().eat(1); // Eats (taking from 3 to 5 seconds).
+                sleep(3000 + (int) (2000*Math.random()));
+                
+                controller.colony().exitEatingZone();   // Exits eating zone and
+                controller.colony().enterRestingZone(); // enters resting zone.
+                sleep(4000);                            // rests for 4 seconds.
+                
+                execCounter++;
+                
+            } catch (InterruptedException ie) {
+            
+                controller.colony().exitRestingZone();
+                controller.colony().enterShelter();
+                
+            } catch (ColonyAccessException caex) {
+                Logger.getLogger(ChildAnt.class.getName()).log(Level.SEVERE, null, caex);
+            }
+            
+        
+        }
     
     }
     

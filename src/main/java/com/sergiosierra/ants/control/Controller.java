@@ -30,20 +30,24 @@ public class Controller {
     
     public WorkerAnt spawnWorkerAnt() {
     
-        return new WorkerAnt(this);
+        WorkerAnt ant = new WorkerAnt(this);
+        this.colonyController.colony.getOutside().add(ant);
+        return ant;
         
     }
     
     public SoldierAnt spawnSoldierAnt() {
     
-        return new SoldierAnt(this);
-    
+        SoldierAnt ant = new SoldierAnt(this);
+        this.colonyController.colony.getOutside().add(ant);
+        return ant;    
     }
     
     public ChildAnt spawnChildAnt() {
     
-        return new ChildAnt(this);
-    
+        ChildAnt ant = new ChildAnt(this);
+        this.colonyController.colony.getOutside().add(ant);
+        return ant;    
     }
     
     

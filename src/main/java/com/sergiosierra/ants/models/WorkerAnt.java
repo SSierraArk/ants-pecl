@@ -34,8 +34,8 @@ public class WorkerAnt extends Ant {
         
         if (antId % 2 == 0) {
         
-            controller.colony().enterEatingZone();
             try {
+                controller.colony().enterEatingZone();
                 controller.colony().eat(1);
                 sleep(2000 + (int) (2000*Math.random()));
             } catch (Exception e) {

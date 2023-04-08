@@ -15,6 +15,7 @@ public class Ant extends Thread {
     protected Controller controller;
     protected int antId;
     protected int holdedItems = 0;
+    protected int execCounter = 0;
 
     public int getHoldedItems() {
         return holdedItems;

@@ -4,6 +4,7 @@
  */
 package com.sergiosierra.ants.control;
 
+import com.sergiosierra.ants.exceptions.ColonyAccessException;
 import com.sergiosierra.ants.models.Ant;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.WorkerAnt;
@@ -11,7 +12,6 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import com.sergiosierra.ants.helpers.Logger;
 import com.sergiosierra.ants.models.ChildAnt;
 
 /**
@@ -207,13 +207,16 @@ public class ColonyController {
     
     }
     
-    public void enterEatingZone() {
+    public void enterEatingZone() throws ColonyAccessException {
     
         if(colony.getInside().contains((Ant) Thread.currentThread())) {
         
             colony.getEatingZone().add((Ant) Thread.currentThread());
             
-        }
+        } else throw new ColonyAccessException(
+            "Could not enter eating zone, this ant is either outside the colony"
+            + "or already within some other zone inside the colony."
+        );
     
     }
     
@@ -243,7 +246,7 @@ public class ColonyController {
     
     }
     
-    public synchronized void enterEatingZone(int amount) {
+    public synchronized void enterEatingZone(int amount) throws ColonyAccessException {
     
         enterEatingZone();
         // Add amount of food to the eating zone.
