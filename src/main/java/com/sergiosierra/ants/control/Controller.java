@@ -8,6 +8,8 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
+import java.util.concurrent.Semaphore;
+
 
 /**
  *
@@ -18,6 +20,8 @@ public class Controller {
 
     private ColonyController colonyController;
     private AntController antController;
+    private Semaphore pauseSem = new Semaphore(0, true);
+    private boolean isPaused = false;
     
     public Controller(Colony colony) {
         
@@ -62,6 +66,31 @@ public class Controller {
     
         return antController;
         
+    }
+    
+    public Semaphore pauseSem() {
+    
+        return pauseSem;
+        
+    }
+    
+    public boolean isPaused() {
+    
+        return isPaused;
+    
+    }
+    
+    public void pause() {
+    
+        this.isPaused = true;
+    
+    }
+    
+    public void resume() {
+    
+        pauseSem.release(pauseSem.getQueueLength());
+        this.isPaused = false;
+    
     }
     
 }

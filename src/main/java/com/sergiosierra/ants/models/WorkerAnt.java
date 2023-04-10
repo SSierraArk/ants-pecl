@@ -6,6 +6,8 @@ package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.helpers.Logger;
 import com.sergiosierra.ants.control.Controller;
+import com.sergiosierra.ants.exceptions.ColonyAccessException;
+import java.util.logging.Level;
 
 /**
  *
@@ -45,11 +47,16 @@ public class WorkerAnt extends Ant {
             
         } else {
         
-            controller.colony().enterEatingZone(1);
-            this.dropItems(1);
+            
             try {
+                
+                controller.colony().enterEatingZone(1);
+                this.dropItems(1);
                 sleep(2000 + (int) (2000*Math.random()));
-            } catch (Exception e) {
+            
+            } catch (InterruptedException e) {
+            } catch (ColonyAccessException ex) {
+                java.util.logging.Logger.getLogger(WorkerAnt.class.getName()).log(Level.SEVERE, null, ex);
             }
             controller.colony().exitEatingZone();
             controller.colony().exitColony();
