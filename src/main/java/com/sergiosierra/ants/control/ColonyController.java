@@ -24,9 +24,9 @@ public class ColonyController {
     
     // Sync + comm mechanisms.
     
-    Semaphore exitSem = new Semaphore(1, true);
+    Semaphore exitSem = new Semaphore(2, true);
     // enterSem has two permits as there are two entrance gates.
-    Semaphore enterSem = new Semaphore(2, true); 
+    Semaphore enterSem = new Semaphore(1, true); 
     
     Semaphore foodStorageSem =  new Semaphore(10, true);
     Lock foodMutexLock = new ReentrantLock();
