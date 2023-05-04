@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author ssierra
  */
-public class Seeder extends Thread {
+public class Seeder extends Thread implements Pausable {
     
     private Controller controller;
     private int totalInstances;
@@ -25,6 +25,17 @@ public class Seeder extends Thread {
     
         this.controller = controller;
         this.totalInstances = totalInstances;
+    
+    }
+    
+    @Override
+    public void checkPaused(Controller controller) {
+    
+        if (controller.isPaused()) {
+            
+            controller.pauseSem().acquireUninterruptibly();
+                
+        }
     
     }
     
@@ -38,12 +49,7 @@ public class Seeder extends Thread {
         
         for(int i = 0; i < totalInstances; i++) {
             
-            if (controller.isPaused()) {
-            
-                System.out.println("How dare you!");
-                controller.pauseSem().acquireUninterruptibly();
-                
-            }
+            this.checkPaused(controller);
                 
             try {
                 

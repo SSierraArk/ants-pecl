@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.sergiosierra.ants.helpers;
+package com.sergiosierra.ants.control;
 
 import com.sergiosierra.ants.models.Colony;
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ public class Listener extends Thread {
                 sleep(50);
             } catch (InterruptedException e) {
             }
+            
             System.out.println("Inside: " + colony.getInside());
             System.out.println("Eating Zone: " + colony.getEatingZone());
             System.out.println("Food count: " + colony.getEatingZoneFoodCount());

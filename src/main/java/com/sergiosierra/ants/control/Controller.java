@@ -21,6 +21,7 @@ public class Controller {
     private ColonyController colonyController;
     private AntController antController;
     private Semaphore pauseSem = new Semaphore(0, true);
+    private Semaphore threatSem = new Semaphore(0, true);
     private boolean isPaused = false;
     
     public Controller(Colony colony) {
@@ -54,7 +55,11 @@ public class Controller {
         return ant;    
     }
     
-    
+    /**
+     * This methods returns the {@code ColonyController} object linked to this
+     * {@code Controller} instance.
+     * @return ColonyController
+     */
     public ColonyController colony() {
     
         return colonyController;
@@ -80,12 +85,23 @@ public class Controller {
     
     }
     
+    /**
+     * EN: This method will modify the controller "isPaused" flag to true. All
+     * objects implementing the Pausable interface will pause.
+     * ES: Este método modificará el valor del atributo "isPaused" a true. Todos
+     * los objetos implementando la interfaz Pausable se pausarán.
+     */
     public void pause() {
     
         this.isPaused = true;
     
     }
     
+    /**
+     * EN: Resumes all paused threads and sets the isPaused flag to false.
+     * ES: Reanuda la ejecución de todos los hilos pausados y resetea el valor
+     * del flag "isPaused" a false.
+     */
     public void resume() {
     
         pauseSem.release(pauseSem.getQueueLength());

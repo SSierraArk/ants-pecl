@@ -5,7 +5,7 @@
 package eatingZoneTest;
 
 import com.sergiosierra.ants.control.Controller;
-import com.sergiosierra.ants.helpers.Listener;
+import com.sergiosierra.ants.control.Listener;
 import com.sergiosierra.ants.helpers.Logger;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.WorkerAnt;

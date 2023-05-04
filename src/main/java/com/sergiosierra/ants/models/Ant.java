@@ -5,12 +5,13 @@
 package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
+import com.sergiosierra.ants.helpers.Pausable;
 
 /**
  *
  * @author ssierra
  */
-public class Ant extends Thread {
+public class Ant extends Thread implements Pausable {
    
     protected Controller controller;
     protected int antId;
@@ -19,6 +20,17 @@ public class Ant extends Thread {
 
     public int getHoldedItems() {
         return holdedItems;
+    }
+    
+    @Override
+    public void checkPaused(Controller controller) {
+    
+        if (controller.isPaused()) {
+        
+            controller.pauseSem().acquireUninterruptibly();
+        
+        }
+    
     }
 
     public void setHoldedItems(int holdedItems) {

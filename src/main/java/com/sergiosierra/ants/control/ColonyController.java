@@ -13,9 +13,11 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import com.sergiosierra.ants.models.ChildAnt;
+import com.sergiosierra.ants.models.SoldierAnt;
 
 /**
- *
+ * This class takes a Colony type object and provides THREAD-SAFE methods <br>
+ * for threads to operate with it comfortably and safely.
  * @author ssierra
  */
 public class ColonyController {
@@ -43,17 +45,19 @@ public class ColonyController {
     }
 
     /**
-     *
-     * @return
+     * Returns a Colony type object linked to this ColonyController.
+     * @return Colony
      */
     public Colony getColony() {
         return colony;
     }
     
     /**
-     *
+     * Enters the food storage room.<br>
+     * (THREAD-SAFE METHOD)
+     * @throws java.lang.InterruptedException
      */
-    public void enterFoodStorage() {
+    public void enterFoodStorage() throws InterruptedException {
    
         try {
             
@@ -61,7 +65,6 @@ public class ColonyController {
             foodMutexLock.lock();
             colony.getFoodStorage().add((WorkerAnt) Thread.currentThread());
             
-        } catch (InterruptedException ex) {
         } finally {
         
             foodMutexLock.unlock();
@@ -72,10 +75,13 @@ public class ColonyController {
     };
     
     /**
-     *
+     * This method takes an {@code int}, enters the food storage room and drops.<br>
+     * as many items as inputted as a parameter.
      * @param amount
+     *        Number of items to be dropped.
+     * @throws java.lang.InterruptedException
      */
-    public void enterFoodStorage(int amount) {
+    public void enterFoodStorage(int amount) throws InterruptedException {
    
         try {
             
@@ -85,7 +91,6 @@ public class ColonyController {
             colony.setFoodCount(colony.getFoodCount() + amount);
             noFood.signalAll();
 
-        } catch (InterruptedException ex) {
         } finally {
             foodMutexLock.unlock();
         
@@ -96,8 +101,9 @@ public class ColonyController {
     
     /**
      *
+     * @throws java.lang.InterruptedException
      */
-    public void exitFoodStorage() {
+    public void exitFoodStorage() throws InterruptedException {
         
         try {
             
@@ -105,9 +111,10 @@ public class ColonyController {
             colony.getFoodStorage().remove((WorkerAnt) Thread.currentThread());
             foodStorageSem.release();
             
-        } catch (Exception e) {
         } finally {
+            
             foodMutexLock.unlock();
+        
         }
         
     
@@ -116,8 +123,9 @@ public class ColonyController {
     /**
      *
      * @param amount
+     * @throws java.lang.InterruptedException
      */
-    public void exitFoodStorage(int amount) {
+    public void exitFoodStorage(int amount) throws InterruptedException {
     
         try {
             
@@ -129,7 +137,6 @@ public class ColonyController {
             colony.getFoodStorage().remove((WorkerAnt) Thread.currentThread());
             foodStorageSem.release();
             
-        } catch (Exception ie) {
         } finally {
             foodMutexLock.unlock();
         }
@@ -137,7 +144,14 @@ public class ColonyController {
     
     };
     
-    public void enterColony() {
+    /**
+     * The thread executing this method will enter the colony.If the thread is already <br>
+     * within the colony, no action will be taken. (THREAD-SAFE METHOD). <br><br>
+     * 
+     * Access to the colony is controlled by a fair Semaphore object.
+     * @throws java.lang.InterruptedException
+     */
+    public void enterColony() throws InterruptedException {
     
         try {
             enterSem.acquire();
@@ -149,19 +163,23 @@ public class ColonyController {
             //Logger.println("Enter Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
 
             
-        } catch (InterruptedException ex) {
         } finally {
         
             
             enterSem.release();
 
-            
         }
         
-    
     }
     
-    public void exitColony() {
+    /**
+     * The thread executing this method will exit the colony (if actually inside it), otherwise <br>
+     * no action will be taken.(THREAD-SAFE METHOD).<br><br>
+     * 
+     * Access to the outside is controlled by a fair Semaphore object.
+     * @throws java.lang.InterruptedException
+     */
+    public void exitColony() throws InterruptedException {
     
         try {
 
@@ -171,17 +189,12 @@ public class ColonyController {
             if(!colony.getOutside().contains((Ant) Thread.currentThread())) colony.getOutside().add((Ant) Thread.currentThread());
             if(colony.getInside().contains((Ant) Thread.currentThread())) colony.getInside().remove((Ant) Thread.currentThread());
             //Logger.println("Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
-
-            
-
-        } catch (InterruptedException ie) {
         
         } finally {
             
             exitSem.release();
         
         }
-        
     
     }
     
@@ -220,6 +233,12 @@ public class ColonyController {
     
     }
     
+    
+    /**
+     * The thread executing this method will exit the eating zone (if actually inside it), otherwise <br>
+     * no action will be taken. (THREAD-SAFE METHOD). <br><br>
+     * 
+     */
     public void exitEatingZone() {
     
         if(colony.getEatingZone().contains((Ant) Thread.currentThread())) {
@@ -246,6 +265,14 @@ public class ColonyController {
     
     }
     
+    
+    /**
+     * This method takes an {@code int}, enters the eating zone and drops <br>
+     * as many items as inputted as a parameter.
+     * @param amount
+     *        Number of items to be dropped.
+     * @throws ColonyAccessException
+     */
     public synchronized void enterEatingZone(int amount) throws ColonyAccessException {
     
         enterEatingZone();
@@ -261,7 +288,7 @@ public class ColonyController {
     
         if(colony.getInside().contains((Ant) Thread.currentThread())) {
         
-            colony.getEatingZone().add((ChildAnt) Thread.currentThread());
+            colony.getRestingZone().add((Ant) Thread.currentThread());
         
         }
     
@@ -269,9 +296,29 @@ public class ColonyController {
     
     public void exitRestingZone() {
     
-        if(colony.getRestingZone().contains((ChildAnt) Thread.currentThread())) {
+        if(colony.getRestingZone().contains((Ant) Thread.currentThread())) {
         
-            colony.getRestingZone().remove((ChildAnt) Thread.currentThread());
+            colony.getRestingZone().remove((Ant) Thread.currentThread());
+        
+        }
+    
+    }
+    
+    public void enterInstructionZone() {
+    
+        if(colony.getInside().contains((SoldierAnt) Thread.currentThread())) {
+        
+            colony.getInstructionZone().add((SoldierAnt) Thread.currentThread());
+        
+        }
+    
+    }
+    
+    public void exitInstructionZone() {
+    
+        if(colony.getInstructionZone().contains((SoldierAnt) Thread.currentThread())) {
+        
+            colony.getInstructionZone().remove((Ant) Thread.currentThread());
         
         }
     

@@ -5,6 +5,8 @@
 package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,6 +32,38 @@ public class SoldierAnt extends Ant {
     
         return getAntId();
     
+    }
+    
+    @Override
+    public void run() {
+    
+        while(true) {
+        
+            checkPaused(controller);
+            
+        }
+    
+    }
+    
+    public void handleThreat() {
+    
+        // Checks all rooms within the colony and ensures to remove the ant from
+        // them.
+        controller.colony().exitEatingZone();
+        controller.colony().exitInstructionZone();
+        controller.colony().exitRestingZone();
+        
+        try {
+            // Exits the colony
+            controller.colony().exitColony();
+        } catch (InterruptedException ex) {
+            // This thread should not be interrupted twice while the colony is
+            // in danger.
+            Thread.interrupted(); // Ignore 
+        }
+        
+        
+
     }
     
 }
