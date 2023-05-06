@@ -254,7 +254,6 @@ public class ColonyController {
         // Check whether there is enough food available at the
         // eating zone.
         while(colony.getEatingZoneFoodCount() < amount) {
-        
             wait();
 
         }

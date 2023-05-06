@@ -6,8 +6,11 @@ package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
 import com.sergiosierra.ants.exceptions.ColonyAccessException;
+import com.sergiosierra.ants.helpers.Log;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  *
@@ -27,7 +30,8 @@ public class ChildAnt extends Ant {
     public void run() {
         
         try {
-        
+            
+            boolean logToFile = false;
             controller.colony().enterColony();
 
             while(true) {
@@ -37,13 +41,23 @@ public class ChildAnt extends Ant {
 
 
                     controller.colony().enterEatingZone(); // Enters eating zone
+                    Log.logln(this.getAntId() + " Eating zone entered.", logToFile);
+                    
                     controller.colony().eat(1); // Eats (taking from 3 to 5 seconds).
+                    Log.logln(this.getAntId() + " Eating...", logToFile);
                     sleep(3000 + (int) (2000*Math.random()));
-
+                    Log.logln(this.getAntId() + " Ended eating...", logToFile);
                     controller.colony().exitEatingZone();   // Exits eating zone and
+                    
                     controller.colony().enterRestingZone(); // enters resting zone.
+                    Log.logln(this.getAntId() + " Entered, resting zone. Going to rest...", logToFile);
+                    
                     sleep(4000);                            // rests for 4 seconds.
 
+                    Log.logln(this.getAntId() + " Woke up!", logToFile);
+                    
+                    controller.colony().exitRestingZone();
+                    
                     execCounter++;
             
             }
@@ -53,12 +67,10 @@ public class ChildAnt extends Ant {
             
         } catch (ColonyAccessException caex) {
             Logger.getLogger(ChildAnt.class.getName()).log(Level.SEVERE, null, caex);
-        }
+        } catch (IOException ex) {
+            Logger.getLogger(ChildAnt.class.getName()).log(Level.SEVERE, null, ex);
+        } 
 
-
-            
-
-    
     }
     
     public String getAntId() {
@@ -85,6 +97,7 @@ public class ChildAnt extends Ant {
 
         // Enters the shelter and waits for the threat to be eliminated.
         controller.colony().enterShelter();
+        controller.threatSem().acquireUninterruptibly();
     
     }
     

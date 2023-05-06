@@ -5,7 +5,7 @@
 package colonyAccess;
 
 import com.sergiosierra.ants.control.Controller;
-import com.sergiosierra.ants.helpers.Logger;
+import com.sergiosierra.ants.helpers.Log;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.WorkerAnt;
 
@@ -38,7 +38,7 @@ public class ColonyAccessTest {
         controller.colony().getColony().getOutside().add(ant5);
 
         Thread.sleep(1000);
-        Logger.println("Program starts!", true);
+        Log.println("Program starts!", true);
         // This Logger.println function delays the actual timestamp.
         // however, after adding these two lines above, this test
         // Can be considered as passed.

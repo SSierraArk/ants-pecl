@@ -8,6 +8,7 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 
 
@@ -21,8 +22,20 @@ public class Controller {
     private ColonyController colonyController;
     private AntController antController;
     private Semaphore pauseSem = new Semaphore(0, true);
-    private Semaphore threatSem = new Semaphore(0, true);
+    
+    /**
+     * This cyclic barrier will control all soldier ants outside of the colony once a
+     * threat is detected.
+     */
+    private CyclicBarrier threatBarrier;
+    
+    /**
+     * Semaphore that halts all child ants until the threat is gone.
+     */
+    private Semaphore threatSem =  new Semaphore(0, true);
+    
     private boolean isPaused = false;
+    private boolean underAttack = false;
     
     public Controller(Colony colony) {
         
@@ -76,6 +89,45 @@ public class Controller {
     public Semaphore pauseSem() {
     
         return pauseSem;
+        
+    }
+    
+    public Semaphore threatSem() {
+    
+        return threatSem;
+        
+    }
+    
+    public CyclicBarrier threatBarrier() {
+    
+        return threatBarrier;
+    
+    }
+    
+    public boolean isUnderAttack() {
+    
+        return underAttack;
+    
+    }
+    
+    public void startAttack() {
+    
+        this.underAttack = true;
+        
+        this.threatBarrier = new CyclicBarrier(ant().defend());
+        
+    
+    }
+    
+    /**
+     * This method stops the attack (sets the underAttack flag to false) and <br>
+     * releases all ants waiting for the threatSem Semaphore
+     */
+    public void stopAttack() {
+    
+        this.underAttack = false;
+        this.threatSem.release(
+            this.threatSem.getQueueLength());
         
     }
     

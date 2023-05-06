@@ -46,6 +46,26 @@ public class AntController {
         this.workerList = workerList;
     }
     
+    public int defend() {
+    
+        int counter = 0;
+        for(SoldierAnt sa : soldierList) {
+        
+            sa.interrupt();
+            counter++;
+        
+        }
+        
+        for(ChildAnt ca : childList) {
+        
+            ca.interrupt();
+        
+        }
+        
+        return counter;
+        
+    }
+    
     
     
 }
