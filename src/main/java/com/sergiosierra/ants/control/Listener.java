@@ -5,7 +5,7 @@
 package com.sergiosierra.ants.control;
 
 import com.sergiosierra.ants.models.Colony;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -18,6 +18,23 @@ public class Listener extends Thread {
     public Listener(Colony colony) {
     
         this.colony = colony;
+    
+    }
+    
+    public HashMap<String, String> getData() {
+    
+        HashMap<String, String> response = new HashMap<>();
+        
+        response.put("eatingZone", colony.getEatingZone().toString());
+        response.put("foodStorage", colony.getFoodStorage().toString());
+        response.put("instructionZone", colony.getInstructionZone().toString());
+        response.put("restingZone", colony.getRestingZone().toString());
+        response.put("shelter", colony.getShelter().toString());
+        response.put("outside", colony.getOutside().toString());
+        response.put("inside", colony.getInside().toString());
+        
+        
+        return response;
     
     }
     

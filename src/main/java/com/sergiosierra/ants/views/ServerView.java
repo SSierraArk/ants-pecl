@@ -4,16 +4,18 @@
  */
 package com.sergiosierra.ants.views;
 
+import java.util.HashMap;
+
 /**
  *
  * @author ssierra
  */
-public class serverView extends javax.swing.JFrame {
+public class ServerView extends javax.swing.JFrame {
 
     /**
      * Creates new form serverView
      */
-    public serverView() {
+    public ServerView() {
         initComponents();
     }
 
@@ -68,10 +70,19 @@ public class serverView extends javax.swing.JFrame {
 
         foodInEatingZoneLabel.setText("Uds. comida (COMEDOR):");
 
+        antsRestingText.setName("antsRestingText"); // NOI18N
+
         foodInStorageLabel.setText("Uds. comida (ALMACÉN):");
+
+        soldiersTrainingText.setName("soldiersTrainingText"); // NOI18N
+
+        antsTransportingFoodText.setName("antsTransportingFoodText"); // NOI18N
+
+        antsInFoodStorageText.setName("antsInFoodStorageText"); // NOI18N
 
         soldiersFightingText.setColumns(20);
         soldiersFightingText.setRows(5);
+        soldiersFightingText.setName("soldiersFightingText"); // NOI18N
         jScrollPane1.setViewportView(soldiersFightingText);
 
         antsRestingLabel.setText("Hormigas descansando:");
@@ -81,6 +92,13 @@ public class serverView extends javax.swing.JFrame {
         antsTransportingFoodLabel.setText("Hormigas llevando comida a la ZONA PARA COMER:");
 
         antsInFoodStorageLabel.setText("Hormigas en el ALMACÉN DE COMIDA:");
+
+        antsCollectingFoodText.setName("antsCollectingFoodText"); // NOI18N
+        antsCollectingFoodText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                antsCollectingFoodTextActionPerformed(evt);
+            }
+        });
 
         soldiersFightingLabel.setText("Hormigas repeliendo un insecto invasor:");
 
@@ -211,6 +229,7 @@ public class serverView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(soldiersTrainingLabel)
                     .addComponent(soldiersTrainingText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(foodInStorageLabel)
@@ -232,12 +251,12 @@ public class serverView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(shelterLabel)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pauseExecBtn)
                     .addComponent(restartExecBtn)
                     .addComponent(generateThreatBtn))
-                .addGap(41, 41, 41))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,6 +281,10 @@ public class serverView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_generateThreatBtnActionPerformed
 
+    private void antsCollectingFoodTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_antsCollectingFoodTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_antsCollectingFoodTextActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -279,20 +302,21 @@ public class serverView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(serverView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(serverView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(serverView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(serverView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new serverView().setVisible(true);
+                new ServerView().setVisible(true);
             }
         });
     }
@@ -328,4 +352,7 @@ public class serverView extends javax.swing.JFrame {
     private javax.swing.JLabel soldiersTrainingLabel;
     private javax.swing.JTextField soldiersTrainingText;
     // End of variables declaration//GEN-END:variables
+
 }
+
+
