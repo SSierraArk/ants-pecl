@@ -9,33 +9,67 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ssierra
  */
-public class Seeder {
+public class Seeder extends Thread implements Pausable {
     
-    public static void seed(Controller controller, int totalInstances) throws InterruptedException {
+    private Controller controller;
+    private int totalInstances;
     
-        ArrayList<ChildAnt> childList = controller.getChildList();
-        ArrayList<SoldierAnt> soldierList = controller.getSoldierList();
-        ArrayList<WorkerAnt> workerList = controller.getWorkerList();
+    public Seeder(Controller controller, int totalInstances) {
+    
+        this.controller = controller;
+        this.totalInstances = totalInstances;
+    
+    }
+    
+    @Override
+    public void checkPaused(Controller controller) {
+    
+        if (controller.isPaused()) {
+            
+            controller.pauseSem().acquireUninterruptibly();
+                
+        }
+    
+    }
+    
+    @Override
+    public void run() {
+    
+        ArrayList<ChildAnt> childList = controller.ant().getChildList();
+        ArrayList<SoldierAnt> soldierList = controller.ant().getSoldierList();
+        ArrayList<WorkerAnt> workerList = controller.ant().getWorkerList();
 
         
         for(int i = 0; i < totalInstances; i++) {
+            
+            this.checkPaused(controller);
+                
+            try {
+                
+            
+                controller.spawnWorkerAnt();
+                System.out.println(workerList.get(workerList.size() - 1).getAntId());
+                Thread.sleep(800 + (int) (2700*Math.random()));
+                if (workerList.size() % 3 == 0) {
+
+                    controller.spawnSoldierAnt();
+                    Thread.sleep(800 + (int) (2700*Math.random()));
+                    controller.spawnChildAnt();
+                    Thread.sleep(800 + (int) (2700*Math.random()));
+                    i = i + 2;
+            
+                }
+                
         
-            workerList.add(new WorkerAnt());
-            Thread.sleep(800 + (int) (2700*Math.random()));
-            if (workerList.size() % 3 == 0) {
-            
-                soldierList.add(new SoldierAnt());
-                Thread.sleep(800 + (int) (2700*Math.random()));
-                childList.add(new ChildAnt());
-                Thread.sleep(800 + (int) (2700*Math.random()));
-                i = i + 2;
-            
-            }            
+            } catch (InterruptedException ie) {
+            }
         }
         
         

@@ -5,9 +5,12 @@
 package com.sergiosierra.ants.control;
 
 import com.sergiosierra.ants.models.ChildAnt;
+import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
-import java.util.ArrayList;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Semaphore;
+
 
 /**
  *
@@ -15,39 +18,147 @@ import java.util.ArrayList;
  */
 public class Controller {
     
-    private ArrayList<SoldierAnt> soldierList = new ArrayList<>();
-    private ArrayList<ChildAnt> childList = new ArrayList<>();
-    private ArrayList<WorkerAnt> workerList = new ArrayList<>();
 
+    private ColonyController colonyController;
+    private AntController antController;
+    private Semaphore pauseSem = new Semaphore(0, true);
     
-    public Controller() {
-    }
-
-    public ArrayList<SoldierAnt> getSoldierList() {
-        return soldierList;
-    }
-
-    public void setSoldierList(ArrayList<SoldierAnt> soldierList) {
-        this.soldierList = soldierList;
-    }
-
-    public ArrayList<ChildAnt> getChildList() {
-        return childList;
-    }
-
-    public void setChildList(ArrayList<ChildAnt> childList) {
-        this.childList = childList;
-    }
-
-    public ArrayList<WorkerAnt> getWorkerList() {
-        return workerList;
-    }
-
-    public void setWorkerList(ArrayList<WorkerAnt> workerList) {
-        this.workerList = workerList;
+    /**
+     * This cyclic barrier will control all soldier ants outside of the colony once a
+     * threat is detected.
+     */
+    private CyclicBarrier threatBarrier;
+    
+    /**
+     * Semaphore that halts all child ants until the threat is gone.
+     */
+    private Semaphore threatSem =  new Semaphore(0, true);
+    
+    private boolean isPaused = false;
+    private boolean underAttack = false;
+    
+    public Controller(Colony colony) {
+        
+        colonyController = new ColonyController(colony);
+        antController = new AntController();
+        
     }
     
+    // Factory methods
     
-
+    public WorkerAnt spawnWorkerAnt() {
+    
+        WorkerAnt ant = new WorkerAnt(this);
+        this.colonyController.colony.getOutside().add(ant);
+        return ant;
+        
+    }
+    
+    public SoldierAnt spawnSoldierAnt() {
+    
+        SoldierAnt ant = new SoldierAnt(this);
+        this.colonyController.colony.getOutside().add(ant);
+        return ant;    
+    }
+    
+    public ChildAnt spawnChildAnt() {
+    
+        ChildAnt ant = new ChildAnt(this);
+        this.colonyController.colony.getOutside().add(ant);
+        return ant;    
+    }
+    
+    /**
+     * This methods returns the {@code ColonyController} object linked to this
+     * {@code Controller} instance.
+     * @return ColonyController
+     */
+    public ColonyController colony() {
+    
+        return colonyController;
+    
+    }
+    
+    
+    public AntController ant() {
+    
+        return antController;
+        
+    }
+    
+    public Semaphore pauseSem() {
+    
+        return pauseSem;
+        
+    }
+    
+    public Semaphore threatSem() {
+    
+        return threatSem;
+        
+    }
+    
+    public CyclicBarrier threatBarrier() {
+    
+        return threatBarrier;
+    
+    }
+    
+    public boolean isUnderAttack() {
+    
+        return underAttack;
+    
+    }
+    
+    public void startAttack() {
+    
+        this.underAttack = true;
+        
+        this.threatBarrier = new CyclicBarrier(ant().defend());
+        
+    
+    }
+    
+    /**
+     * This method stops the attack (sets the underAttack flag to false) and <br>
+     * releases all ants waiting for the threatSem Semaphore
+     */
+    public void stopAttack() {
+    
+        this.underAttack = false;
+        this.threatSem.release(
+            this.threatSem.getQueueLength());
+        
+    }
+    
+    public boolean isPaused() {
+    
+        return isPaused;
+    
+    }
+    
+    /**
+     * EN: This method will modify the controller "isPaused" flag to true. All
+     * objects implementing the Pausable interface will pause.
+     * ES: Este método modificará el valor del atributo "isPaused" a true. Todos
+     * los objetos implementando la interfaz Pausable se pausarán.
+     */
+    public void pause() {
+    
+        this.isPaused = true;
+    
+    }
+    
+    /**
+     * EN: Resumes all paused threads and sets the isPaused flag to false.
+     * ES: Reanuda la ejecución de todos los hilos pausados y resetea el valor
+     * del flag "isPaused" a false.
+     */
+    public void resume() {
+    
+        pauseSem.release(pauseSem.getQueueLength());
+        this.isPaused = false;
+    
+    }
     
 }

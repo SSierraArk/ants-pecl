@@ -1,4 +1,4 @@
-package test.seeder;
+package seeder;
 
 
 import com.sergiosierra.ants.control.Controller;
@@ -34,9 +34,9 @@ public class ControllerListener extends Thread {
             } catch (InterruptedException ex) {
                 Logger.getLogger(ControllerListener.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Worker: " + controller.getWorkerList().size());
-            System.out.println("Child: " + controller.getChildList().size());
-            System.out.println("Soldier: " + controller.getSoldierList().size());
+            System.out.println("Worker: " + controller.ant().getWorkerList());
+            System.out.println("Child: " + controller.ant().getChildList().size());
+            System.out.println("Soldier: " + controller.ant().getSoldierList().size());
 
         
         }
