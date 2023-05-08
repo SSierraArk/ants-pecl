@@ -9,8 +9,7 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -42,9 +41,9 @@ public class Seeder extends Thread implements Pausable {
     @Override
     public void run() {
     
-        ArrayList<ChildAnt> childList = controller.ant().getChildList();
-        ArrayList<SoldierAnt> soldierList = controller.ant().getSoldierList();
-        ArrayList<WorkerAnt> workerList = controller.ant().getWorkerList();
+        CopyOnWriteArrayList<ChildAnt> childList = controller.ant().getChildList();
+        CopyOnWriteArrayList<SoldierAnt> soldierList = controller.ant().getSoldierList();
+        CopyOnWriteArrayList<WorkerAnt> workerList = controller.ant().getWorkerList();
 
         
         for(int i = 0; i < totalInstances; i++) {
@@ -54,14 +53,14 @@ public class Seeder extends Thread implements Pausable {
             try {
                 
             
-                controller.spawnWorkerAnt();
+                controller.spawnWorkerAnt().start();
                 System.out.println(workerList.get(workerList.size() - 1).getAntId());
                 Thread.sleep(800 + (int) (2700*Math.random()));
                 if (workerList.size() % 3 == 0) {
 
-                    controller.spawnSoldierAnt();
+                    controller.spawnSoldierAnt().start();
                     Thread.sleep(800 + (int) (2700*Math.random()));
-                    controller.spawnChildAnt();
+                    controller.spawnChildAnt().start();
                     Thread.sleep(800 + (int) (2700*Math.random()));
                     i = i + 2;
             

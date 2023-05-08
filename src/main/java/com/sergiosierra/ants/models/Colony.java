@@ -5,26 +5,27 @@
 package com.sergiosierra.ants.models;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
  * @author ssierra
  */
-public class Colony {
+public class Colony implements Cloneable {
     
     private int foodCount = 0;
     private int eatingZoneFoodCount = 0;
     
     // Zones that are specific to a certain kind of ant.
-    private ArrayList<WorkerAnt> foodStorage = new ArrayList<>();
-    private ArrayList<SoldierAnt> instructionZone = new ArrayList<>();
-    private ArrayList<ChildAnt> shelter = new ArrayList<>();
+    private CopyOnWriteArrayList<WorkerAnt> foodStorage = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<SoldierAnt> instructionZone = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<ChildAnt> shelter = new CopyOnWriteArrayList<>();
     
     // Zones accessible to all ants.
-    private ArrayList<Ant> eatingZone = new ArrayList<>();
-    private ArrayList<Ant> restingZone = new ArrayList<>();
-    private ArrayList<Ant> outside = new ArrayList<>();
-    private ArrayList<Ant> inside = new ArrayList<>();
+    private CopyOnWriteArrayList<Ant> eatingZone = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<Ant> restingZone = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<Ant> outside = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<Ant> inside = new CopyOnWriteArrayList<>();
 
     public int getEatingZoneFoodCount() {
         return eatingZoneFoodCount;
@@ -42,34 +43,71 @@ public class Colony {
         this.foodCount = foodCount;
     }
 
-    public ArrayList<WorkerAnt> getFoodStorage() {
+    public CopyOnWriteArrayList<WorkerAnt> getFoodStorage() {
         return foodStorage;
     }
 
-    public ArrayList<SoldierAnt> getInstructionZone() {
+    public void setFoodStorage(CopyOnWriteArrayList<WorkerAnt> foodStorage) {
+        this.foodStorage = foodStorage;
+    }
+
+    public CopyOnWriteArrayList<SoldierAnt> getInstructionZone() {
         return instructionZone;
     }
 
-    public ArrayList<ChildAnt> getShelter() {
+    public void setInstructionZone(CopyOnWriteArrayList<SoldierAnt> instructionZone) {
+        this.instructionZone = instructionZone;
+    }
+
+    public CopyOnWriteArrayList<ChildAnt> getShelter() {
         return shelter;
     }
 
-    public ArrayList<Ant> getEatingZone() {
+    public void setShelter(CopyOnWriteArrayList<ChildAnt> shelter) {
+        this.shelter = shelter;
+    }
+
+    public CopyOnWriteArrayList<Ant> getEatingZone() {
         return eatingZone;
     }
 
-    public ArrayList<Ant> getRestingZone() {
+    public void setEatingZone(CopyOnWriteArrayList<Ant> eatingZone) {
+        this.eatingZone = eatingZone;
+    }
+
+    public CopyOnWriteArrayList<Ant> getRestingZone() {
         return restingZone;
     }
 
-    public ArrayList<Ant> getOutside() {
+    public void setRestingZone(CopyOnWriteArrayList<Ant> restingZone) {
+        this.restingZone = restingZone;
+    }
+
+    public CopyOnWriteArrayList<Ant> getOutside() {
         return outside;
     }
 
-    public ArrayList<Ant> getInside() {
+    public void setOutside(CopyOnWriteArrayList<Ant> outside) {
+        this.outside = outside;
+    }
+
+    public CopyOnWriteArrayList<Ant> getInside() {
         return inside;
     }
+
+    public void setInside(CopyOnWriteArrayList<Ant> inside) {
+        this.inside = inside;
+    }
+
     
+    
+    
+    
+    public void copy(Colony colony) {
+    
+        
+    
+    }
     
 
     

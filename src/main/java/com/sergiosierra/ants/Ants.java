@@ -6,11 +6,9 @@ package com.sergiosierra.ants;
 
 import com.sergiosierra.ants.control.Controller;
 import com.sergiosierra.ants.control.ViewController;
+import com.sergiosierra.ants.helpers.Seeder;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.views.ServerView;
-import java.awt.Component;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 
 /**
@@ -19,25 +17,22 @@ import javax.swing.JTextField;
  */
 public class Ants {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         
         Colony colony = new Colony();
         Controller controller = new Controller(colony);
+        Seeder seeder = new Seeder(controller, 10000);
+        seeder.start();
+        
         ViewController serverView = new ViewController(ServerView.class);
         
+        serverView.attach(controller);
+        
+        
         serverView.prompt();
-        // Explore component list
-        Component[] iterable = ((JPanel) serverView.getFrame().getContentPane().getComponents()[0]).getComponents();
+        serverView.start();
         
-        for (Component elem : iterable) {
-        
-            System.out.println("Elem -> " + elem.toString() + "\n");
-            
-        }
-        
-        serverView.getTextFieldByName("antsInFoodStorageText").setText("I'm working!");
-        serverView.getTextFieldByName("antsCollectingFoodText").setText("I'm working!");
-
+       
         
     }
     

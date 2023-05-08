@@ -32,7 +32,7 @@ public class ServerView extends javax.swing.JFrame {
         foodInEatingZoneText = new javax.swing.JTextField();
         eatingZoneLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        eatingZoneText = new javax.swing.JTextArea();
+        eatingZoneArea = new javax.swing.JTextArea();
         foodInEatingZoneLabel = new javax.swing.JLabel();
         foodInStorageText = new javax.swing.JTextField();
         antsRestingText = new javax.swing.JTextField();
@@ -41,7 +41,7 @@ public class ServerView extends javax.swing.JFrame {
         antsTransportingFoodText = new javax.swing.JTextField();
         antsInFoodStorageText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        soldiersFightingText = new javax.swing.JTextArea();
+        soldiersFightingArea = new javax.swing.JTextArea();
         antsRestingLabel = new javax.swing.JLabel();
         soldiersTrainingLabel = new javax.swing.JLabel();
         antsTransportingFoodLabel = new javax.swing.JLabel();
@@ -53,7 +53,7 @@ public class ServerView extends javax.swing.JFrame {
         OutsideLabel = new javax.swing.JLabel();
         shelterLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        shelterText = new javax.swing.JTextArea();
+        shelterArea = new javax.swing.JTextArea();
         pauseExecBtn = new javax.swing.JButton();
         restartExecBtn = new javax.swing.JButton();
         generateThreatBtn = new javax.swing.JButton();
@@ -62,13 +62,20 @@ public class ServerView extends javax.swing.JFrame {
         setTitle("Colony Lookup - server-side");
         setResizable(false);
 
+        foodInEatingZoneText.setName("foodInEatingZoneText"); // NOI18N
+
         eatingZoneLabel.setText("ZONA PARA COMER");
 
-        eatingZoneText.setColumns(20);
-        eatingZoneText.setRows(5);
-        jScrollPane2.setViewportView(eatingZoneText);
+        jScrollPane2.setName("eatingZoneScrollPane"); // NOI18N
+
+        eatingZoneArea.setColumns(20);
+        eatingZoneArea.setRows(5);
+        eatingZoneArea.setName("eatingZoneArea"); // NOI18N
+        jScrollPane2.setViewportView(eatingZoneArea);
 
         foodInEatingZoneLabel.setText("Uds. comida (COMEDOR):");
+
+        foodInStorageText.setName("foodInStorageText"); // NOI18N
 
         antsRestingText.setName("antsRestingText"); // NOI18N
 
@@ -80,10 +87,12 @@ public class ServerView extends javax.swing.JFrame {
 
         antsInFoodStorageText.setName("antsInFoodStorageText"); // NOI18N
 
-        soldiersFightingText.setColumns(20);
-        soldiersFightingText.setRows(5);
-        soldiersFightingText.setName("soldiersFightingText"); // NOI18N
-        jScrollPane1.setViewportView(soldiersFightingText);
+        jScrollPane1.setName("soldiersFightingScrollPane"); // NOI18N
+
+        soldiersFightingArea.setColumns(20);
+        soldiersFightingArea.setRows(5);
+        soldiersFightingArea.setName("soldiersFightingArea"); // NOI18N
+        jScrollPane1.setViewportView(soldiersFightingArea);
 
         antsRestingLabel.setText("Hormigas descansando:");
 
@@ -101,6 +110,7 @@ public class ServerView extends javax.swing.JFrame {
         });
 
         soldiersFightingLabel.setText("Hormigas repeliendo un insecto invasor:");
+        soldiersFightingLabel.setName("soldiersFightingLabel"); // NOI18N
 
         antsCollectingFoodLabel.setText("Hormigas buscando comida:");
 
@@ -112,9 +122,12 @@ public class ServerView extends javax.swing.JFrame {
 
         shelterLabel.setText("REFUGIO");
 
-        shelterText.setColumns(20);
-        shelterText.setRows(5);
-        jScrollPane3.setViewportView(shelterText);
+        jScrollPane3.setName("shelterScrollPane"); // NOI18N
+
+        shelterArea.setColumns(20);
+        shelterArea.setRows(5);
+        shelterArea.setName("shelterArea"); // NOI18N
+        jScrollPane3.setViewportView(shelterArea);
 
         pauseExecBtn.setText("Pausar");
         pauseExecBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -229,7 +242,7 @@ public class ServerView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(soldiersTrainingLabel)
                     .addComponent(soldiersTrainingText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(foodInStorageLabel)
@@ -332,8 +345,8 @@ public class ServerView extends javax.swing.JFrame {
     private javax.swing.JTextField antsRestingText;
     private javax.swing.JLabel antsTransportingFoodLabel;
     private javax.swing.JTextField antsTransportingFoodText;
+    private javax.swing.JTextArea eatingZoneArea;
     private javax.swing.JLabel eatingZoneLabel;
-    private javax.swing.JTextArea eatingZoneText;
     private javax.swing.JLabel foodInEatingZoneLabel;
     private javax.swing.JTextField foodInEatingZoneText;
     private javax.swing.JLabel foodInStorageLabel;
@@ -345,10 +358,10 @@ public class ServerView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton pauseExecBtn;
     private javax.swing.JButton restartExecBtn;
+    private javax.swing.JTextArea shelterArea;
     private javax.swing.JLabel shelterLabel;
-    private javax.swing.JTextArea shelterText;
+    private javax.swing.JTextArea soldiersFightingArea;
     private javax.swing.JLabel soldiersFightingLabel;
-    private javax.swing.JTextArea soldiersFightingText;
     private javax.swing.JLabel soldiersTrainingLabel;
     private javax.swing.JTextField soldiersTrainingText;
     // End of variables declaration//GEN-END:variables

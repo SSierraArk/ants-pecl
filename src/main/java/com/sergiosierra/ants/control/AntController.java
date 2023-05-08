@@ -8,6 +8,7 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -16,35 +17,79 @@ import java.util.ArrayList;
 public class AntController {
     
     
-    private ArrayList<SoldierAnt> soldierList = new ArrayList<>();
-    private ArrayList<ChildAnt> childList = new ArrayList<>();
-    private ArrayList<WorkerAnt> workerList = new ArrayList<>();
+    private CopyOnWriteArrayList<SoldierAnt> soldierList = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<ChildAnt> childList = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<WorkerAnt> workerList = new CopyOnWriteArrayList<>();
     
+    private CopyOnWriteArrayList<WorkerAnt> lookingForFoodList = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<WorkerAnt> carryingFoodList = new CopyOnWriteArrayList<>();
     
+    public void setLookingForFood(WorkerAnt ant) {
+    
+        lookingForFoodList.add(ant);
+    
+    }
+    
+    public void unsetLookingForFood(WorkerAnt ant) {
+    
+        lookingForFoodList.remove(ant);
+    
+    }
+    
+    public void setCarryingFood(WorkerAnt ant) {
+    
+        carryingFoodList.add(ant);
+    
+    }
+    
+    public void unsetCarryingFood(WorkerAnt ant) {
+    
+        carryingFoodList.remove(ant);
+    
+    }
 
-    public ArrayList<SoldierAnt> getSoldierList() {
+    public CopyOnWriteArrayList<SoldierAnt> getSoldierList() {
         return soldierList;
     }
 
-    public void setSoldierList(ArrayList<SoldierAnt> soldierList) {
+    public void setSoldierList(CopyOnWriteArrayList<SoldierAnt> soldierList) {
         this.soldierList = soldierList;
     }
 
-    public ArrayList<ChildAnt> getChildList() {
+    public CopyOnWriteArrayList<ChildAnt> getChildList() {
         return childList;
     }
 
-    public void setChildList(ArrayList<ChildAnt> childList) {
+    public void setChildList(CopyOnWriteArrayList<ChildAnt> childList) {
         this.childList = childList;
     }
 
-    public ArrayList<WorkerAnt> getWorkerList() {
+    public CopyOnWriteArrayList<WorkerAnt> getWorkerList() {
         return workerList;
     }
 
-    public void setWorkerList(ArrayList<WorkerAnt> workerList) {
+    public void setWorkerList(CopyOnWriteArrayList<WorkerAnt> workerList) {
         this.workerList = workerList;
     }
+
+    public CopyOnWriteArrayList<WorkerAnt> getLookingForFoodList() {
+        return lookingForFoodList;
+    }
+
+    public void setLookingForFoodList(CopyOnWriteArrayList<WorkerAnt> lookingForFoodList) {
+        this.lookingForFoodList = lookingForFoodList;
+    }
+
+    public CopyOnWriteArrayList<WorkerAnt> getCarryingFoodList() {
+        return carryingFoodList;
+    }
+
+    public void setCarryingFoodList(CopyOnWriteArrayList<WorkerAnt> carryingFoodList) {
+        this.carryingFoodList = carryingFoodList;
+    }
+    
+
+    
     
     public int defend() {
     

@@ -4,22 +4,28 @@
  */
 package com.sergiosierra.ants.control;
 
+import com.sergiosierra.ants.helpers.Response;
 import java.awt.Component;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JViewport;
 
 /**
  *
  * @author ssierra
  */
-public class ViewController <T extends JFrame> {
+public class ViewController <T extends JFrame> extends Thread {
     
     private JFrame frame;
+    private Controller controller;
     private HashMap<String, Component> componentMap = new HashMap<>();
     
     
@@ -29,10 +35,26 @@ public class ViewController <T extends JFrame> {
      * parent {@code JPanel}
      */
     private void initComponentMap() {
-    
-        for(Component elem : ((JPanel) frame.getContentPane().getComponents()[0]).getComponents()) {
+
         
-            componentMap.put(elem.getName(), elem);
+        for(Component elem : ((JPanel) frame.getContentPane().getComponents()[0]).getComponents()) {
+
+            String name = "";
+            
+            if (elem.getName() != null && elem.getName().endsWith("ScrollPane")) {
+            
+                JViewport viewport = ((JScrollPane) elem).getViewport();
+                elem = viewport.getComponents()[0];
+                name = elem.getName();
+            
+            }
+
+            if (elem.getName() != null) {
+            
+                name = elem.getName();
+                
+            }
+            componentMap.put(name, elem);
             
         }
         
@@ -75,6 +97,12 @@ public class ViewController <T extends JFrame> {
         
     
     }
+    
+    public void attach(Controller controller) {
+    
+        this.controller = controller;
+        
+    }
 
     public HashMap<String, Component> getComponentMap() {
         return componentMap;
@@ -91,6 +119,63 @@ public class ViewController <T extends JFrame> {
     
         return (JTextField) componentMap.get(name);
         
+    }
+    
+    public ArrayList<JTextField> getAllTextFields() {
+    
+        ArrayList<JTextField> result =  new ArrayList<>();
+        
+        componentMap.forEach(
+        (String key, Component value) -> {
+        
+            if(key.matches("(.*)Text")) {
+            
+                result.add((JTextField) value);
+                
+            }
+        
+        });
+        
+        return result;
+        
+    }
+    
+    @Override
+    public void run() {
+    
+        try {
+            update(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
+    public void update(int updateRatioMillis) throws InterruptedException {
+    
+        while(true) {
+        
+            Response<String> response = controller.fetch("FETCH//server");
+            
+            response.getPayload().forEach((key, value) -> {
+
+                if(getComponentByName(key) != null && key.endsWith("Text")) {
+                    getTextFieldByName(key).setText(value);
+                    
+                }
+                
+                if(getComponentByName(key) != null && key.endsWith("Area")) {
+                
+                    ((JTextArea) getComponentByName(key)).setText(value);
+                    
+                }
+                
+            });
+            Thread.sleep(updateRatioMillis);
+            
+        }
+        
+    
     }
 
     public JFrame getFrame() {

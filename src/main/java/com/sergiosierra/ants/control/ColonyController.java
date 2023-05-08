@@ -182,14 +182,18 @@ public class ColonyController {
     public void exitColony() throws InterruptedException {
     
         try {
-
+            if(!colony.getOutside().contains((Ant) Thread.currentThread()) && colony.getInside().contains((Ant) Thread.currentThread())) {
+            
+            
             exitSem.acquire();
             //Logger.println("Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
             Thread.sleep(100);
-            if(!colony.getOutside().contains((Ant) Thread.currentThread())) colony.getOutside().add((Ant) Thread.currentThread());
-            if(colony.getInside().contains((Ant) Thread.currentThread())) colony.getInside().remove((Ant) Thread.currentThread());
+            colony.getOutside().add((Ant) Thread.currentThread());
+            colony.getInside().remove((Ant) Thread.currentThread());
             //Logger.println("Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
         
+            }
+            
         } finally {
             
             exitSem.release();
