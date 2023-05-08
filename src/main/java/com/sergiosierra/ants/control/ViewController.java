@@ -5,12 +5,16 @@
 package com.sergiosierra.ants.control;
 
 import com.sergiosierra.ants.helpers.Response;
+import com.sergiosierra.ants.views.ServerView;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -96,6 +100,51 @@ public class ViewController <T extends JFrame> extends Thread {
         
         
     
+    }
+    
+    /**
+     * Factory method. Returns a ViewController with all configurations made for <br>
+     * for an underlying {@code ServerView}.
+     * @return 
+     */
+    public static ViewController newServerView(Controller controller) {
+        
+        ViewController serverView = new ViewController(ServerView.class);
+        
+        serverView.attach(controller);
+        
+        
+        ((JButton) serverView.getComponentByName("pauseExecBtn")).addActionListener(new ActionListener() {
+        
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                controller.pause();
+            }
+        
+        });
+        
+        ((JButton) serverView.getComponentByName("restartExecBtn")).addActionListener(new ActionListener() {
+        
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                controller.resume();
+            }
+        
+        });
+        
+        ((JButton) serverView.getComponentByName("generateThreatBtn")).addActionListener(new ActionListener() {
+        
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                controller.startAttack();
+            }
+        
+        });
+
+        return serverView;
     }
     
     public void attach(Controller controller) {
@@ -184,6 +233,7 @@ public class ViewController <T extends JFrame> extends Thread {
 
     public void prompt() {
         frame.setVisible(true);
+  
     }
     
     

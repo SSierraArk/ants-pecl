@@ -5,7 +5,6 @@
 package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
-import com.sergiosierra.ants.exceptions.ColonyAccessException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +25,7 @@ public class WorkerAnt extends Ant {
         
     }
     
-    public void getBehaviour() throws InterruptedException, ColonyAccessException {
+    public void getBehaviour() throws InterruptedException {
     
         // Behaviour for odd-id ants
         if (this.antId % 2 != 0) {
@@ -114,8 +113,6 @@ public class WorkerAnt extends Ant {
                 }
                 
             } catch (InterruptedException ex) {
-                Logger.getLogger(WorkerAnt.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ColonyAccessException ex) {
                 Logger.getLogger(WorkerAnt.class.getName()).log(Level.SEVERE, null, ex);
             }
         

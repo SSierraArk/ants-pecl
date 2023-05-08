@@ -22,6 +22,7 @@ public class AntController {
     private CopyOnWriteArrayList<WorkerAnt> workerList = new CopyOnWriteArrayList<>();
     
     private CopyOnWriteArrayList<WorkerAnt> lookingForFoodList = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<SoldierAnt> fightingList = new CopyOnWriteArrayList<>();
     private CopyOnWriteArrayList<WorkerAnt> carryingFoodList = new CopyOnWriteArrayList<>();
     
     public void setLookingForFood(WorkerAnt ant) {
@@ -87,6 +88,14 @@ public class AntController {
     public void setCarryingFoodList(CopyOnWriteArrayList<WorkerAnt> carryingFoodList) {
         this.carryingFoodList = carryingFoodList;
     }
+
+    public CopyOnWriteArrayList<SoldierAnt> getFightingList() {
+        return fightingList;
+    }
+
+    public void setFightingList(CopyOnWriteArrayList<SoldierAnt> fightingList) {
+        this.fightingList = fightingList;
+    }
     
 
     
@@ -97,6 +106,7 @@ public class AntController {
         for(SoldierAnt sa : soldierList) {
         
             sa.interrupt();
+            fightingList.add(sa);
             counter++;
         
         }

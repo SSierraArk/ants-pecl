@@ -5,7 +5,6 @@
 package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
-import com.sergiosierra.ants.exceptions.ColonyAccessException;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
@@ -84,8 +83,6 @@ public class SoldierAnt extends Ant {
             
                 handleThreat();
                 
-            } catch (ColonyAccessException ex) {
-                Logger.getLogger(SoldierAnt.class.getName()).log(Level.SEVERE, null, ex);
             }
             
            
@@ -108,11 +105,14 @@ public class SoldierAnt extends Ant {
             controller.colony().exitColony();
             // Get cyclicbarrier from controller and await all other ants.
             controller.threatBarrier().await();
+            System.out.println("combatimo' o klk");
+
             
-            Thread.sleep(200000);
+            Thread.sleep(20000);
             
             // Threat defeated!
-            
+            System.out.println("bolbemo o klk");
+            controller.ant().getFightingList().remove(this);
             mutexThreatSem.acquire();
             if(controller.isUnderAttack()) {
             

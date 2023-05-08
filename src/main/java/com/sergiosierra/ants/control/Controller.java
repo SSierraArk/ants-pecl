@@ -92,7 +92,7 @@ public class Controller {
             // Ants fighting
             payload.put(
                 "soldiersFightingArea",
-                "To be implemented"
+                ant().getFightingList().toString()
             );
             // Ants in Storage room.
             payload.put(

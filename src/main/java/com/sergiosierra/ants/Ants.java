@@ -28,42 +28,10 @@ public class Ants {
         Seeder seeder = new Seeder(controller, 10000);
         seeder.start();
         
-        ViewController serverView = new ViewController(ServerView.class);
-        
-        serverView.attach(controller);
-        
-        
-        serverView.prompt();
-        ((JButton) serverView.getComponentByName("pauseExecBtn")).addActionListener(new ActionListener() {
-        
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                controller.pause();
-            }
-        
-        });
-        
-        ((JButton) serverView.getComponentByName("restartExecBtn")).addActionListener(new ActionListener() {
-        
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                controller.resume();
-            }
-        
-        });
-        
-        ((JButton) serverView.getComponentByName("generateThreatBtn")).addActionListener(new ActionListener() {
-        
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                controller.startAttack();
-            }
-        
-        });
+        ViewController serverView = ViewController.newServerView(controller);
         serverView.start();
+        serverView.prompt();
+        
         
        
         

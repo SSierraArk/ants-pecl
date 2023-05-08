@@ -4,7 +4,6 @@
  */
 package com.sergiosierra.ants.control;
 
-import com.sergiosierra.ants.exceptions.ColonyAccessException;
 import com.sergiosierra.ants.models.Ant;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.WorkerAnt;
@@ -229,16 +228,13 @@ public class ColonyController {
     
     }
     
-    public void enterEatingZone() throws ColonyAccessException {
+    public void enterEatingZone() {
     
         if(colony.getInside().contains((Ant) Thread.currentThread())) {
         
             colony.getEatingZone().add((Ant) Thread.currentThread());
             
-        } else throw new ColonyAccessException(
-            "Could not enter eating zone, this ant is either outside the colony"
-            + "or already within some other zone inside the colony."
-        );
+        }
     
     }
     
@@ -281,7 +277,7 @@ public class ColonyController {
      *        Number of items to be dropped.
      * @throws ColonyAccessException
      */
-    public synchronized void enterEatingZone(int amount) throws ColonyAccessException {
+    public synchronized void enterEatingZone(int amount) {
     
         enterEatingZone();
         // Add amount of food to the eating zone.

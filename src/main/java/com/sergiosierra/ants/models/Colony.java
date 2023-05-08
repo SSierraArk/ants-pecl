@@ -98,17 +98,5 @@ public class Colony implements Cloneable {
     public void setInside(CopyOnWriteArrayList<Ant> inside) {
         this.inside = inside;
     }
-
-    
-    
-    
-    
-    public void copy(Colony colony) {
-    
-        
-    
-    }
-    
-
     
 }
