@@ -130,6 +130,7 @@ public class ServerView extends javax.swing.JFrame {
         jScrollPane3.setViewportView(shelterArea);
 
         pauseExecBtn.setText("Pausar");
+        pauseExecBtn.setName("pauseExecBtn"); // NOI18N
         pauseExecBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pauseExecBtnActionPerformed(evt);
@@ -137,8 +138,10 @@ public class ServerView extends javax.swing.JFrame {
         });
 
         restartExecBtn.setText("Reanudar");
+        restartExecBtn.setName("restartExecBtn"); // NOI18N
 
         generateThreatBtn.setText("Generar Amenaza Insecto Invasor");
+        generateThreatBtn.setName("generateThreatBtn"); // NOI18N
         generateThreatBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateThreatBtnActionPerformed(evt);

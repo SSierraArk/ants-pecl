@@ -74,6 +74,7 @@ public class SoldierAnt extends Ant {
                 // Get into the resting zone and spend 2 seconds there.
                 controller.colony().enterRestingZone();
                 Thread.sleep(2000);
+                controller.colony().exitRestingZone();
                 
                 // Increase counter
                 this.execCounter++;

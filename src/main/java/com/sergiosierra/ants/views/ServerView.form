@@ -366,6 +366,7 @@
         <Component class="javax.swing.JButton" name="pauseExecBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pausar"/>
+            <Property name="name" type="java.lang.String" value="pauseExecBtn" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pauseExecBtnActionPerformed"/>
@@ -374,11 +375,13 @@
         <Component class="javax.swing.JButton" name="restartExecBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Reanudar"/>
+            <Property name="name" type="java.lang.String" value="restartExecBtn" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="generateThreatBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Generar Amenaza Insecto Invasor"/>
+            <Property name="name" type="java.lang.String" value="generateThreatBtn" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generateThreatBtnActionPerformed"/>

@@ -14,6 +14,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.SoldierAnt;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class takes a Colony type object and provides THREAD-SAFE methods <br>
@@ -125,22 +126,26 @@ public class ColonyController {
      * @param amount
      * @throws java.lang.InterruptedException
      */
-    public void exitFoodStorage(int amount) throws InterruptedException {
+    public boolean exitFoodStorage(int amount, int timeoutCount) throws InterruptedException {
     
+        int counter = 0;
         try {
             
             foodMutexLock.lock();
-            while(colony.getFoodCount() < amount) {
-                noFood.await();
+            while(colony.getFoodCount() < amount && counter < timeoutCount) {
+                noFood.await(2, TimeUnit.SECONDS);
+                counter++;
             }
-            colony.setFoodCount(colony.getFoodCount() - amount);
+            
+            if (counter < timeoutCount) colony.setFoodCount(colony.getFoodCount() - amount);
             colony.getFoodStorage().remove((WorkerAnt) Thread.currentThread());
-            foodStorageSem.release();
             
         } finally {
             foodMutexLock.unlock();
+            foodStorageSem.release();
+            
         }
-        
+        return counter == timeoutCount;
     
     };
     

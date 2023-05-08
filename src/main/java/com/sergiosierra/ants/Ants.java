@@ -9,6 +9,10 @@ import com.sergiosierra.ants.control.ViewController;
 import com.sergiosierra.ants.helpers.Seeder;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.views.ServerView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 
 
 /**
@@ -30,6 +34,35 @@ public class Ants {
         
         
         serverView.prompt();
+        ((JButton) serverView.getComponentByName("pauseExecBtn")).addActionListener(new ActionListener() {
+        
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                controller.pause();
+            }
+        
+        });
+        
+        ((JButton) serverView.getComponentByName("restartExecBtn")).addActionListener(new ActionListener() {
+        
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                controller.resume();
+            }
+        
+        });
+        
+        ((JButton) serverView.getComponentByName("generateThreatBtn")).addActionListener(new ActionListener() {
+        
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                controller.startAttack();
+            }
+        
+        });
         serverView.start();
         
        

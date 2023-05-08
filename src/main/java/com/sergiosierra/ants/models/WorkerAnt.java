@@ -56,15 +56,22 @@ public class WorkerAnt extends Ant {
             
             // Pick a food element up taking from 1 to 2 seconds and leave.
             Thread.sleep(1000 + (int) (1000*Math.random()));
-            controller.colony().exitFoodStorage(1);
-            controller.ant().setCarryingFood(this);
-            this.holdedItems++;
+            boolean timedout = controller.colony().exitFoodStorage(1, 3);
+            if (!timedout) {
             
-            // Walk up to the Eating Zone (takes 1 to 3 seconds), enter, drop items
-            // (takes 1 to 2 seconds) and leave.
-            Thread.sleep(1000 + (int) (2000*Math.random()));
-            controller.colony().enterEatingZone(this.holdedItems--);
-            controller.ant().unsetCarryingFood(this);
+                controller.ant().setCarryingFood(this);
+                this.holdedItems++;
+
+                // Walk up to the Eating Zone (takes 1 to 3 seconds), enter, drop items
+                // (takes 1 to 2 seconds) and leave.
+                Thread.sleep(1000 + (int) (2000*Math.random()));
+                controller.colony().enterEatingZone(this.holdedItems--);
+                controller.ant().unsetCarryingFood(this);
+                
+            } else {
+                controller.colony().enterEatingZone();
+            }
+            
             Thread.sleep(1000 + (int) (2000*Math.random()));
             controller.colony().exitEatingZone();
             
