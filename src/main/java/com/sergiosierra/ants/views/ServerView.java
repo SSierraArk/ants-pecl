@@ -4,7 +4,8 @@
  */
 package com.sergiosierra.ants.views;
 
-import java.util.HashMap;
+import com.sergiosierra.ants.util.Config;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -12,13 +13,24 @@ import java.util.HashMap;
  */
 public class ServerView extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form serverView
      */
     public ServerView() {
         initComponents();
+        setIcon();
     }
 
+    public void setIcon() {
+    
+        ImageIcon ii = new ImageIcon(Config.APP_ICON);
+        
+        this.setIconImage(ii.getImage());
+    
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +81,7 @@ public class ServerView extends javax.swing.JFrame {
         jScrollPane2.setName("eatingZoneScrollPane"); // NOI18N
 
         eatingZoneArea.setColumns(20);
+        eatingZoneArea.setLineWrap(true);
         eatingZoneArea.setRows(5);
         eatingZoneArea.setName("eatingZoneArea"); // NOI18N
         jScrollPane2.setViewportView(eatingZoneArea);
@@ -90,6 +103,7 @@ public class ServerView extends javax.swing.JFrame {
         jScrollPane1.setName("soldiersFightingScrollPane"); // NOI18N
 
         soldiersFightingArea.setColumns(20);
+        soldiersFightingArea.setLineWrap(true);
         soldiersFightingArea.setRows(5);
         soldiersFightingArea.setName("soldiersFightingArea"); // NOI18N
         jScrollPane1.setViewportView(soldiersFightingArea);
@@ -125,6 +139,7 @@ public class ServerView extends javax.swing.JFrame {
         jScrollPane3.setName("shelterScrollPane"); // NOI18N
 
         shelterArea.setColumns(20);
+        shelterArea.setLineWrap(true);
         shelterArea.setRows(5);
         shelterArea.setName("shelterArea"); // NOI18N
         jScrollPane3.setViewportView(shelterArea);

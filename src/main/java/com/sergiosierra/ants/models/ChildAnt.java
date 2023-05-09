@@ -39,20 +39,20 @@ public class ChildAnt extends Ant {
 
                 controller.colony().enterColony();
                 controller.colony().enterEatingZone(); // Enters eating zone
-                Log.logln(this.getAntId() + " Eating zone entered.", logToFile);
+                Log.logln(this.getAntId() + " Eating zone entered.");
 
                 controller.colony().eat(1); // Eats (taking from 3 to 5 seconds).
-                Log.logln(this.getAntId() + " Eating...", logToFile);
+                Log.logln(this.getAntId() + " Eating...");
                 sleep(3000 + (int) (2000*Math.random()));
-                Log.logln(this.getAntId() + " Ended eating...", logToFile);
+                Log.logln(this.getAntId() + " Ended eating...");
                 controller.colony().exitEatingZone();   // Exits eating zone and
 
                 controller.colony().enterRestingZone(); // enters resting zone.
-                Log.logln(this.getAntId() + " Entered, resting zone. Going to rest...", logToFile);
+                Log.logln(this.getAntId() + " Entered, resting zone. Going to rest...");
 
                 sleep(4000);                            // rests for 4 seconds.
 
-                Log.logln(this.getAntId() + " Woke up!", logToFile);
+                Log.logln(this.getAntId() + " Woke up!");
 
                 controller.colony().exitRestingZone();
 

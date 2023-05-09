@@ -4,6 +4,7 @@
  */
 package com.sergiosierra.ants.helpers;
 
+import com.sergiosierra.ants.util.Config;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class Log {
     
     private static Semaphore logMutexSem = new Semaphore(1, true);
     
-    public static void logln(String str, boolean output) throws IOException {
+    public static void logln(String str) throws IOException {
     
         logMutexSem.acquireUninterruptibly();
         
@@ -32,9 +33,9 @@ public class Log {
         
         System.out.println(formattedContent);
         
-        if (output) {
+        if (Config.LOG_ENABLED) {
         
-            FileWriter fw = new FileWriter("./", true);
+            FileWriter fw = new FileWriter(Config.LOG_PATH + "log_" + Config.LOG_DATETIME +  ".txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(formattedContent);
             bw.newLine();
