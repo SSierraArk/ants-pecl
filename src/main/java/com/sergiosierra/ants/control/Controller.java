@@ -43,9 +43,6 @@ public class Controller {
     private boolean underAttack = false;
     
     
-    private ServerSocket serverSocket;
-    private Socket clientSocket;
-    
     public Controller(Colony colony) {
         
         colonyController = new ColonyController(colony);
@@ -85,6 +82,8 @@ public class Controller {
         
         if (request.equals("COMMAND//attack")) {
         
+            // Only allows to start the attack if the colony was not previously
+            // being attacked.
             startAttack();
             response.setStatus(200);
             response.flushErrorBag();
@@ -267,9 +266,14 @@ public class Controller {
     
     public void startAttack() {
     
-        this.underAttack = true;
+        if (!underAttack && !ant().getSoldierList().isEmpty()) {
         
-        this.threatBarrier = new CyclicBarrier(ant().defend());
+            this.underAttack = true;
+        
+            this.threatBarrier = new CyclicBarrier(ant().defend());
+        
+        }
+        
         
     
     }

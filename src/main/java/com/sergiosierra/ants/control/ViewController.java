@@ -173,6 +173,7 @@ public class ViewController <T extends JFrame> extends Thread {
                 public void actionPerformed(ActionEvent e)
                 {
                     clientView.socketOut.println("COMMAND//attack");
+                    
                 }
 
             });
