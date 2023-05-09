@@ -9,13 +9,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * <b>EN</b>: Class implementing a worker ant (Ant's subclass). <br><br>
+ * <b>ES</b>: Clase que implementa una hormiga obrera. (Subclase de Ant).
  * @author ssierra
  */
 public class WorkerAnt extends Ant {
     
     
-    
+    /**
+     * <b>EN</b>: Creates a new {@code WorkerAnt} instance taking a {@code Controller} <br>
+     * as a parameter and adds it to its corresponding data structure within the controller. <br><br>
+     * <b>ES</b>: Crea una nueva instancia de {@code WorkerAnt} tomando un {@code Controller} <br>
+     * como parámetro y lo añade a la estructura de datos correspondiente dentro del controlador.
+     * @param controller 
+     */
     public WorkerAnt(Controller controller) {
     
         this.controller = controller;
@@ -25,6 +32,14 @@ public class WorkerAnt extends Ant {
         
     }
     
+    /**
+     *
+     * <b>EN</b>: Determines {@code WorkerAnt} behaviour based on its {@code antId}. <br><br>
+     * <b>ES</b>: Determina el comportamiento principal a seguir por {@code WorkerAnt} <br>
+     * en función de su {@code antId}.
+     *
+     * @throws InterruptedException 
+     */
     public void getBehaviour() throws InterruptedException {
     
         // Behaviour for odd-id ants
@@ -82,6 +97,11 @@ public class WorkerAnt extends Ant {
     
     }
     
+    /**
+     * <b>EN</b>: Main {@code WorkerAnt} behaviour to be executed as a thread. <br><br>
+     * <b>ES</b>: Comportamiento principal a seguir por {@code WorkerAnt} y que se <br>
+     * ejecutará como un hilo.
+     */
     @Override
     public void run() {
     
@@ -120,10 +140,24 @@ public class WorkerAnt extends Ant {
     
     }
 
+    /**
+     * <b>EN</b>: Returns the {@code antId} formatted as per its type. <br><br>
+     * <b>ES</b>: Devuelve el {@code antId} formateado según su tipo.
+     * @return 
+     *          String {@code antId} 
+     */
     public String getAntId() {
         return "HO" + String.format("%04d", antId);
     }
     
+    /**
+     * <b>EN</b>: Returns the {@code antId} formatted as per its type. <br>
+     * wraps {@code getAntId()} method. <br><br>
+     * <b>ES</b>: Devuelve el {@code antId} formateado según su tipo. <br>
+     * envuelve el método {@code getAntId()}
+     * @return 
+     *          String {@code antId} 
+     */
     @Override
     public String toString() {
     

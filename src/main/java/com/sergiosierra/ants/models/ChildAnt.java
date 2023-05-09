@@ -12,11 +12,19 @@ import java.util.logging.Logger;
 
 
 /**
- *
+ * <b>EN</b>: Class implementing a child ant (Ant's subclass). <br><br>
+ * <b>ES</b>: Clase que implementa una hormiga cría. (Subclase de Ant).
  * @author ssierra
  */
 public class ChildAnt extends Ant {
     
+    /**
+     * <b>EN</b>: Creates a new {@code ChildAnt} instance taking a {@code Controller} <br>
+     * as a parameter and adds it to its corresponding data structure within the controller. <br><br>
+     * <b>ES</b>: Crea una nueva instancia de {@code ChildAnt} tomando un {@code Controller} <br>
+     * como parámetro y lo añade a la estructura de datos correspondiente dentro del controlador.
+     * @param controller 
+     */
     public ChildAnt(Controller controller) {
     
         this.controller = controller;
@@ -25,10 +33,13 @@ public class ChildAnt extends Ant {
     
     }
     
+    /**
+     * <b>EN</b>: Main {@code ChildAnt} behaviour to be executed as a thread. <br><br>
+     * <b>ES</b>: Comportamiento principal a seguir por {@code ChildAnt} y que se <br>
+     * ejecutará como un hilo.
+     */
     @Override
     public void run() {
-        
-        boolean logToFile = false;
         
         while(true) {
             
@@ -69,20 +80,16 @@ public class ChildAnt extends Ant {
         }
     }
     
-    public String getAntId() {
-        return "HC" + String.format("%04d", antId);
-    }
-    
-    @Override
-    public String toString() {
-    
-        return getAntId();
-    
-    }
-    
     /**
-     * This method contains the behaviour {@code ChildAnt} will follow in <br>
-     * case of a threat.
+     * <b>EN</b>: This method contains the algorithm to be followed in case a threat <br>
+     * is present. <br>
+     * Any {@code InterruptedException} thrown within this method will be IGNORED <br>
+     * as this method cannot be executed more than once at a time. <br><br>
+     * <b>ES</b>: Este método contiene el algoritmo que se seguirá en caso de una <br>
+     * amenaza. <br>
+     * Cualquier {@code InterruptedException} lanzada desde este método será <br>
+     * IGNORADA ya que este método no se puede ejecutar más de una vez al mismo <br>
+     * tiempo.
      */
     public void handleThreat() {
     
@@ -96,6 +103,31 @@ public class ChildAnt extends Ant {
         controller.threatSem().acquireUninterruptibly();
     
         controller.colony().exitShelter();
+    }
+    
+    /**
+     * <b>EN</b>: Returns the {@code antId} formatted as per its type. <br><br>
+     * <b>ES</b>: Devuelve el {@code antId} formateado según su tipo.
+     * @return 
+     *          String {@code antId} 
+     */
+    public String getAntId() {
+        return "HC" + String.format("%04d", antId);
+    }
+    
+    /**
+     * <b>EN</b>: Returns the {@code antId} formatted as per its type. <br>
+     * wraps {@code getAntId()} method. <br><br>
+     * <b>ES</b>: Devuelve el {@code antId} formateado según su tipo. <br>
+     * envuelve el método {@code getAntId()}
+     * @return 
+     *          String {@code antId} 
+     */
+    @Override
+    public String toString() {
+    
+        return getAntId();
+    
     }
     
 }
