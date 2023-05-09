@@ -9,18 +9,12 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 
 /**
@@ -160,6 +154,9 @@ public class Controller {
         if (request.equals("FETCH//client")) {
         
             HashMap<String, String> payload = new HashMap<>();
+            int childAntsEating = (int) colony().getColony().getEatingZone().
+                    stream().filter(elem -> elem instanceof ChildAnt).count();
+            
             
             // Ants inside the colony.
             payload.put(
@@ -174,7 +171,7 @@ public class Controller {
             // Child ants eating.
             payload.put(
                 "childAntsEatingText",
-                "TBI"
+                Integer.toString(childAntsEating)
             );
             // Ants hiding.
             payload.put(
