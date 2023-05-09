@@ -4,6 +4,7 @@
  */
 package com.sergiosierra.ants.helpers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
  *
  * @author ssierra
  */
-public class Response <T> {
+public class Response <T> implements Serializable {
     
     private HashMap<String, T> payload = new HashMap<>();
     private int status;
@@ -54,6 +55,12 @@ public class Response <T> {
     
     public void addError(String error) {
         this.errorBag.add(error);
+    }
+    
+    public void flushErrorBag() {
+        
+        this.errorBag.removeAll(this.errorBag);
+    
     }
     
     

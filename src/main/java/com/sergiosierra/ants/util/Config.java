@@ -24,6 +24,9 @@ public class Config {
     
     public static final String APP_ICON = "./resources/icon.png";
     
+    
+    public static final int PORT = 25565;
+    
     public Config() {
         
         Date now = new Date();

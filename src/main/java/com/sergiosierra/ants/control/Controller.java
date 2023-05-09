@@ -9,9 +9,18 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -39,6 +48,10 @@ public class Controller {
     private boolean isPaused = false;
     private boolean underAttack = false;
     
+    
+    private ServerSocket serverSocket;
+    private Socket clientSocket;
+    
     public Controller(Colony colony) {
         
         colonyController = new ColonyController(colony);
@@ -46,26 +59,7 @@ public class Controller {
         
     }
     
-    public void command(String request) {
     
-        Response<String> response;
-        
-        response = new Response(400);
-        response.addError("400: Bad request");
-        
-        if (request.equals("COMMAND//pause")) {
-        
-            pause();
-            
-        }
-        
-        if (request.equals("COMMAND//resume")) {
-        
-            resume();
-        
-        }
-    
-    }
     
     /**
      * This method will serve as an entry point for all requests made <br>
@@ -73,12 +67,34 @@ public class Controller {
      * @param request
      * @return 
      */
-    public Response<String> fetch(String request) {
+    public Response<String> query(String request) {
     
         Response<String> response;
         
         response = new Response(400);
         response.addError("400: Bad Request");
+        
+        if (request.equals("COMMAND//pause")) {
+        
+            pause();
+            response.setStatus(200);
+            response.flushErrorBag();
+            
+        }
+        
+        if (request.equals("COMMAND//resume")) {
+        
+            resume();
+            response.setStatus(200);
+            response.flushErrorBag();
+        }
+        
+        if (request.equals("COMMAND//attack")) {
+        
+            startAttack();
+            response.setStatus(200);
+            response.flushErrorBag();
+        }
         
         if (request.equals("FETCH//server")) {
         
@@ -141,13 +157,47 @@ public class Controller {
         
         }
         
-        if (request.equals("GET//client")) {
+        if (request.equals("FETCH//client")) {
         
+            HashMap<String, String> payload = new HashMap<>();
+            
+            // Ants inside the colony.
+            payload.put(
+                "antsInsideText",
+                Integer.toString(colony().getColony().getInside().size())
+            );
+            // Ants outside the colony
+            payload.put(
+                "antsOutsideText",
+                Integer.toString(colony().getColony().getOutside().size())
+            );
+            // Child ants eating.
+            payload.put(
+                "childAntsEatingText",
+                "TBI"
+            );
+            // Ants hiding.
+            payload.put(
+                "childAntsHidingText",
+                Integer.toString(colony().getColony().getShelter().size())
+            );
+            // Ants training.
+            payload.put(
+                "soldiersTrainingText",
+                Integer.toString(colony().getColony().getInstructionZone().size())
+            );
+            // ants fighting.
+            payload.put(
+                "soldiersFightingText",
+                Integer.toString(ant().getFightingList().size())
+            );
+            
+            response = new Response(200);
+            response.setPayload(payload);
             
         
         }
         
-    
         return response;
     
     }

@@ -48,9 +48,7 @@ public class Log {
         
         }
 
-        logMutexSem.release();
-        System.out.println("Semaphore released");
-        
+        logMutexSem.release();        
     }
     
     public static synchronized void syncPrintln(String str) {

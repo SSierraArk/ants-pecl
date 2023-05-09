@@ -159,22 +159,41 @@
         <Component class="javax.swing.JButton" name="generateThreatBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Generar Amenaza Insecto Invasor"/>
+            <Property name="name" type="java.lang.String" value="generateThreatRemoteBtn" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generateThreatBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="antsOutsideText">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="antsOutsideText" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="antsInsideText">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="antsInsideText" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="soldiersTrainingText">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="soldiersTrainingText" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="soldiersFightingText">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="soldiersFightingText" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="childAntsEatingText">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="childAntsEatingText" noResource="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="childAntsHidingText">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="childAntsHidingText" noResource="true"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -4,6 +4,9 @@
  */
 package com.sergiosierra.ants.views;
 
+import com.sergiosierra.ants.util.Config;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ssierra
@@ -15,6 +18,15 @@ public class ClientView extends javax.swing.JFrame {
      */
     public ClientView() {
         initComponents();
+        setIcon();
+    }
+    
+    public void setIcon() {
+    
+        ImageIcon ii = new ImageIcon(Config.APP_ICON);
+        
+        this.setIconImage(ii.getImage());
+    
     }
 
     /**
@@ -58,11 +70,24 @@ public class ClientView extends javax.swing.JFrame {
         childAntsHidingLabel.setText("Número de hormigas cría en el REFUGIO:");
 
         generateThreatBtn.setText("Generar Amenaza Insecto Invasor");
+        generateThreatBtn.setName("generateThreatRemoteBtn"); // NOI18N
         generateThreatBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateThreatBtnActionPerformed(evt);
             }
         });
+
+        antsOutsideText.setName("antsOutsideText"); // NOI18N
+
+        antsInsideText.setName("antsInsideText"); // NOI18N
+
+        soldiersTrainingText.setName("soldiersTrainingText"); // NOI18N
+
+        soldiersFightingText.setName("soldiersFightingText"); // NOI18N
+
+        childAntsEatingText.setName("childAntsEatingText"); // NOI18N
+
+        childAntsHidingText.setName("childAntsHidingText"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

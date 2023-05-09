@@ -5,11 +5,17 @@
 package com.sergiosierra.ants.control;
 
 import com.sergiosierra.ants.helpers.Response;
+import com.sergiosierra.ants.util.Config;
+import com.sergiosierra.ants.views.ClientView;
 import com.sergiosierra.ants.views.ServerView;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -30,6 +36,9 @@ public class ViewController <T extends JFrame> extends Thread {
     
     private JFrame frame;
     private Controller controller;
+    private Socket clientSocket;
+    private PrintWriter socketOut;
+    private ObjectInputStream socketIn;
     private HashMap<String, Component> componentMap = new HashMap<>();
     
     
@@ -119,7 +128,7 @@ public class ViewController <T extends JFrame> extends Thread {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                controller.pause();
+                controller.query("COMMAND//pause");
             }
         
         });
@@ -129,7 +138,7 @@ public class ViewController <T extends JFrame> extends Thread {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                controller.resume();
+                controller.query("COMMAND//resume");
             }
         
         });
@@ -139,7 +148,7 @@ public class ViewController <T extends JFrame> extends Thread {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                controller.startAttack();
+                controller.query("COMMAND//attack");
             }
         
         });
@@ -147,10 +156,49 @@ public class ViewController <T extends JFrame> extends Thread {
         return serverView;
     }
     
+    public static ViewController newClientView(Controller controller) {
+        
+        ViewController clientView = new ViewController(ClientView.class);
+        // No controller to be attached this time as connection will take place
+        // remotely.
+        clientView.attach("0.0.0.0", 25565);
+        try {
+            clientView.socketOut = new PrintWriter(clientView.clientSocket.getOutputStream(), true);
+            clientView.socketIn = new ObjectInputStream(clientView.clientSocket.getInputStream());
+            //Response<String> response = (Response<String>) input.readObject();
+
+            ((JButton) clientView.getComponentByName("generateThreatRemoteBtn")).addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    clientView.socketOut.println("COMMAND//attack");
+                }
+
+            });
+        
+        } catch (IOException ex) {
+            Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return clientView;
+    }
+    
     public void attach(Controller controller) {
     
         this.controller = controller;
         
+    }
+    
+    public void attach(String ip, int port) {
+    
+        this.controller = null; // Remote connection.
+        try {
+            this.clientSocket = new Socket(ip, port);
+        } catch (IOException ex) {
+            Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
 
     public HashMap<String, Component> getComponentMap() {
@@ -193,19 +241,27 @@ public class ViewController <T extends JFrame> extends Thread {
     public void run() {
     
         try {
-            update(100);
+            update(Config.UPDATE_RATE);
         } catch (InterruptedException ex) {
+            Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }
     
-    public void update(int updateRatioMillis) throws InterruptedException {
+    public void update(int updateRatioMillis) throws InterruptedException, IOException, ClassNotFoundException {
     
         while(true) {
         
-            Response<String> response = controller.fetch("FETCH//server");
+            if (clientSocket != null) this.socketOut.println("FETCH//client");
             
+            Response<String> response = controller != null
+                ? controller.query("FETCH//server")
+                : (Response<String>) socketIn.readObject();
+                    
             response.getPayload().forEach((key, value) -> {
 
                 if(getComponentByName(key) != null && key.endsWith("Text")) {
