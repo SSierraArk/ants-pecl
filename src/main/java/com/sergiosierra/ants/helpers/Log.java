@@ -32,6 +32,7 @@ public class Log {
         
         // Access the resource...
         // Note that the DateTime has already been fixed.
+        // The actual event time will be shown.
         logMutexSem.acquireUninterruptibly();
         
         System.out.println(formattedContent);
