@@ -22,14 +22,17 @@ public class Log {
     
     public static void logln(String str) throws IOException {
     
-        logMutexSem.acquireUninterruptibly();
+        
         
         Date now = new Date();
-        String format = "HH:mm:ss dd-MM-yyyy";
+        String format = "HH:mm:ss:SSSS dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         
         String formattedContent = sdf.format(now) + " - " + str;
         
+        // Access the resource...
+        // Note that the DateTime has already been fixed.
+        logMutexSem.acquireUninterruptibly();
         
         System.out.println(formattedContent);
         
