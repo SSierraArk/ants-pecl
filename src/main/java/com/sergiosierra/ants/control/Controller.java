@@ -4,14 +4,18 @@
  */
 package com.sergiosierra.ants.control;
 
+import com.sergiosierra.ants.helpers.Log;
 import com.sergiosierra.ants.helpers.Response;
 import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -399,6 +403,11 @@ public class Controller {
     public void pause() {
     
         this.isPaused = true;
+        try {
+            Log.logln("SYSTEM: Pause signal sent!");
+        } catch (IOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }
     
@@ -411,6 +420,11 @@ public class Controller {
     
         pauseSem.release(pauseSem.getQueueLength());
         this.isPaused = false;
+        try {
+            Log.logln("SYSTEM: Resume signal sent!");
+        } catch (IOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }
     

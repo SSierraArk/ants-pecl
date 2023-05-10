@@ -6,6 +6,7 @@ package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
 import com.sergiosierra.ants.helpers.Log;
+import com.sergiosierra.ants.util.Config;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,23 +50,34 @@ public class ChildAnt extends Ant {
             try {
 
                 controller.colony().enterColony();
+                
+                // Logs only if not already within the colony.
+                if (!controller.colony().getColony().getInside().contains(this)) {
+                
+                    Log.logln(this.getAntId() + " Colony entered.");
+
+                
+                }
+                
                 controller.colony().enterEatingZone(); // Enters eating zone
                 Log.logln(this.getAntId() + " Eating zone entered.");
 
-                controller.colony().eat(1); // Eats (taking from 3 to 5 seconds).
+                controller.colony().eat(Config.ANT_CHILD_FOOD_CONSUMED); // Eats (taking from 3 to 5 seconds).
                 Log.logln(this.getAntId() + " Eating...");
-                sleep(3000 + (int) (2000*Math.random()));
+                sleep(Config.ANT_CHILD_EATING_TIME + (int) (Config.ANT_CHILD_EATING_TIME_OFFSET*Math.random()));
                 Log.logln(this.getAntId() + " Ended eating...");
                 controller.colony().exitEatingZone();   // Exits eating zone and
-
+                Log.logln(this.getAntId() + " Left eating zone.");
+                
                 controller.colony().enterRestingZone(); // enters resting zone.
-                Log.logln(this.getAntId() + " Entered, resting zone. Going to rest...");
+                Log.logln(this.getAntId() + " Entered resting zone. Going to rest...");
 
-                sleep(4000);                            // rests for 4 seconds.
+                sleep(Config.ANT_CHILD_RESTING_TIME); // rests for 4 seconds.
 
                 Log.logln(this.getAntId() + " Woke up!");
 
                 controller.colony().exitRestingZone();
+                Log.logln(this.getAntId() + " Left resting zone.");
 
                 execCounter++;
             
@@ -93,16 +105,22 @@ public class ChildAnt extends Ant {
      */
     public void handleThreat() {
     
-        // Exits any zone within the colony if currently in and moves up
-        // to the shelter.
-        controller.colony().exitEatingZone();
-        controller.colony().exitRestingZone();
-
-        // Enters the shelter and waits for the threat to be eliminated.
-        controller.colony().enterShelter();
-        controller.threatSem().acquireUninterruptibly();
-    
-        controller.colony().exitShelter();
+        try {
+            // Exits any zone within the colony if currently in and moves up
+            // to the shelter.
+            controller.colony().exitEatingZone();
+            controller.colony().exitRestingZone();
+            Log.logln(this.getAntId() + " Oh no! there is a threat.");
+            // Enters the shelter and waits for the threat to be eliminated.
+            controller.colony().enterShelter();
+            Log.logln(this.getAntId() + " Protecting at the shelter!");
+            controller.threatSem().acquireUninterruptibly();
+            controller.colony().exitShelter();
+            Log.logln(this.getAntId() + " Threat is gone, back to normal.");
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ChildAnt.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**

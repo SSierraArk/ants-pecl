@@ -194,12 +194,9 @@ public class ColonyController {
     
         try {
             enterSem.acquire();
-            //Logger.println("Enter Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
-            Thread.sleep(100);
-            //Logger.println("Woke up!" + Thread.currentThread().getName(), Boolean.TRUE);
+            Thread.sleep(Config.COL_ENTRANCE_DELAY);
             if(!colony.getInside().contains((Ant) Thread.currentThread())) colony.getInside().add((Ant) Thread.currentThread());
             if(colony.getOutside().contains((Ant) Thread.currentThread())) colony.getOutside().remove((Ant) Thread.currentThread());
-            //Logger.println("Enter Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);
 
             
         } finally {
@@ -224,7 +221,7 @@ public class ColonyController {
             
             exitSem.acquire();
             //Logger.println("Semaphore acquired -> " + Thread.currentThread().getName() + " permits: " + enterSem.availablePermits(), Boolean.TRUE);
-            Thread.sleep(100);
+            Thread.sleep(Config.COL_ENTRANCE_DELAY);
             colony.getOutside().add((Ant) Thread.currentThread());
             colony.getInside().remove((Ant) Thread.currentThread());
             //Logger.println("Semaphore released -> " + Thread.currentThread().getName(), Boolean.TRUE);

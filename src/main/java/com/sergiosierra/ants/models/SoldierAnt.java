@@ -5,6 +5,9 @@
 package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
+import com.sergiosierra.ants.helpers.Log;
+import com.sergiosierra.ants.util.Config;
+import java.io.IOException;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
@@ -59,30 +62,44 @@ public class SoldierAnt extends Ant {
                 
                 // Enters the colony if not already in.
                 controller.colony().enterColony();
+                
+                if (!controller.colony().getColony().getInside().contains(this)) {
+                
+                    Log.logln(this.getAntId() + " Colony entered.");
+
+                
+                }
 
                 // Checks the execution counter and gets to eat in case it has to.
                 // It takes 1 food element.
-                if(this.execCounter == 6) {
+                if(this.execCounter == Config.ANT_SOLDIER_MAX_ITERS) {
                 
                     controller.colony().enterEatingZone();
-                    controller.colony().eat(1);
-                    Thread.sleep(3000);
+                    Log.logln(this.getAntId() + " Eating zone entered, time to eat!");
+                    controller.colony().eat(Config.ANT_SOLDIER_FOOD_CONSUMED);
+                    Thread.sleep(Config.ANT_SOLDIER_EATING_TIME);
                     controller.colony().exitEatingZone();
+                    Log.logln(this.getAntId() + " Food was lovely today! Leaving eating zone...");
                 
                 }
                 
                 // Gets to the instruction zone and takes from 2 to 8 seconds over
                 // there.
                 controller.colony().enterInstructionZone();
-                Thread.sleep(2000 + (int)(6000*Math.random()));
+                Log.logln(this.getAntId() + " Instruction zone entered!");
+                Thread.sleep(Config.ANT_SOLDIER_TRAINING_TIME + (int)(Config.ANT_SOLDIER_TRAINING_TIME_OFFSET*Math.random()));
                 
                 // Exit instruction zone
                 controller.colony().exitInstructionZone();
+                Log.logln(this.getAntId() + " Left instruction zone, stronger than ever!");
                 
                 // Get into the resting zone and spend 2 seconds there.
                 controller.colony().enterRestingZone();
-                Thread.sleep(2000);
+                Log.logln(this.getAntId() + " Resting zone entered, let's sleep!");
+                Thread.sleep(Config.ANT_SOLDIER_RESTING_TIME);
+                Log.logln(this.getAntId() + " Woke up.");
                 controller.colony().exitRestingZone();
+                Log.logln(this.getAntId() + " Left resting zone!");
                 
                 // Increase counter
                 this.execCounter++;
@@ -92,6 +109,8 @@ public class SoldierAnt extends Ant {
             
                 handleThreat();
                 
+            } catch (IOException ex) {
+                Logger.getLogger(SoldierAnt.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -109,35 +128,43 @@ public class SoldierAnt extends Ant {
      */
     public void handleThreat() {
     
-        // Checks all rooms within the colony and ensures to remove the ant from
-        // them.
-        controller.colony().exitEatingZone();
-        controller.colony().exitInstructionZone();
-        controller.colony().exitRestingZone();
-        
         try {
+            // Checks all rooms within the colony and ensures to remove the ant from
+            // them.
+            controller.colony().exitEatingZone();
+            controller.colony().exitInstructionZone();
+            controller.colony().exitRestingZone();
+        
+            Log.logln(this.getAntId() + " WARNING: there is an invasion. Heading to the battlefield.");
+        
             // Exits the colony
             controller.colony().exitColony();
+            Log.logln(this.getAntId() + " Left the colony.");
             // Get cyclicbarrier from controller and await all other ants.
+            Log.logln(this.getAntId() + " Waiting for my comrades!.");
             controller.threatBarrier().await();
 
             
-            Thread.sleep(20000);
+            Thread.sleep(Config.THREAT_DURATION);
             
-            // Threat defeated!
+            
             controller.ant().getFightingList().remove(this);
             mutexThreatSem.acquire();
             if(controller.isUnderAttack()) {
             
+                Log.logln(this.getAntId() + " Threat defeated!.");
                 controller.stopAttack();
             
             }
             mutexThreatSem.release();
+            Log.logln(this.getAntId() + " Back to routine.");
             
         } catch (InterruptedException ignored) {
             // EXCEPTION IGNORED
             // This block must NOT be reached.
         } catch (BrokenBarrierException ex) {
+            Logger.getLogger(SoldierAnt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(SoldierAnt.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -44,11 +44,16 @@ public class Log {
         // The actual event time will be shown.
         logMutexSem.acquireUninterruptibly();
         
-        System.out.println(formattedContent);
+        if (Config.LOG_CONSOLE_ENABLED) {
         
-        if (Config.LOG_ENABLED) {
+            System.out.println(formattedContent);
+            
+        }
         
-            FileWriter fw = new FileWriter(Config.LOG_PATH + "log_" + Config.LOG_DATETIME +  ".txt", true);
+        
+        if (Config.LOG_FILE_ENABLED) {
+        
+            FileWriter fw = new FileWriter(Config.LOG_PATH + Config.LOG_FILENAME + "_" + Config.LOG_DATETIME + "." + Config.LOG_EXT, true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(formattedContent);
             bw.newLine();

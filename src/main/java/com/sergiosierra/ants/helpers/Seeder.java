@@ -67,7 +67,6 @@ public class Seeder extends Thread implements Pausable {
                 
             
                 controller.spawnWorkerAnt().start();
-                System.out.println(workerList.get(workerList.size() - 1).getAntId());
                 Thread.sleep(Config.SEEDER_MIN + (int) (Config.SEEDER_OFFSET*Math.random()));
                 if (workerList.size() % 3 == 0) {
 

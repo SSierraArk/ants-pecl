@@ -21,24 +21,50 @@ public class Ants {
 
     public static void main(String[] args) throws InterruptedException, IOException {
         
+        // Needed instances initialisation.
+        
         Config conf = new Config();
         Colony colony = new Colony();
         Controller controller = new Controller(colony);
         Server server = new Server(controller, Config.PORT);
         Seeder seeder = new Seeder(controller, Config.INSTANCES);
+        
+        // Starting both the seeder and server.
+        
         seeder.start();
-        
         server.start();
-
         
-        //ViewController serverView = ViewController.newServerView(controller);
-        //serverView.start();
-        //serverView.prompt();
+        // SERVER-SIDE BLOCK
+        /**********************************************************************
+        **********************************************************************/
+        // UNCOMMENT BELOW TO TRY THE SERVER-SIDE OF THE APPLICATION.
+        /**********************************************************************
+        **********************************************************************/
         
-        ViewController clientView = ViewController.newClientView(controller);
-        clientView.start();
-        clientView.prompt();
-       
+        
+        ViewController serverView = ViewController.newServerView(controller);
+        serverView.start();
+        serverView.prompt();
+        
+        /**********************************************************************
+        **********************************************************************/
+        // SERVER-SIDE BLOCK ENDS
+        
+        
+        // CLIENT-SIDE BLOCK
+        /**********************************************************************
+        **********************************************************************/
+        // UNCOMMENT BELOW TO TRY THE CLIENT-SIDE OF THE APPLICATION.
+        /**********************************************************************
+        **********************************************************************/
+        
+        //ViewController clientView = ViewController.newClientView(controller);
+        // clientView.start();
+        // clientView.prompt();
+        
+        /**********************************************************************
+        **********************************************************************/
+        // CLIENT-SIDE BLOCK ENDS
         
     }
     
