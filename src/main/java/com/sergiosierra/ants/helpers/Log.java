@@ -13,17 +13,26 @@ import java.util.Date;
 import java.util.concurrent.Semaphore;
 
 /**
- *
+ * <b>EN</b>: This class provides methods for any {@code Thread} to log to a file. <br><br>
+ * <b>ES</b>: Esta clase proporciona métodos para que cualquier {@code Thread} escriba en un archivo de log.
  * @author ssierra
  */
 public class Log {
     
+    /**
+     * <b>EN</b>: This binary semaphore helps ensuring the text file is accessed in mutual exclusion.<br><br>
+     * <b>ES</b>: Este semáforo binario se asegura de que el archivo de texto se acceda en exclusión mutua.
+     */
     private static Semaphore logMutexSem = new Semaphore(1, true);
     
+    /**
+     * <b>EN</b>: This method logs a given string into a text file located in ./log/<br><br>
+     * <b>ES</b>: Este método registra una cadena de caracteres dada en un archivo de texto ubicado en ./log/.
+     * @param str
+     * @throws IOException 
+     */
     public static void logln(String str) throws IOException {
     
-        
-        
         Date now = new Date();
         String format = "HH:mm:ss:SSSS dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -50,35 +59,4 @@ public class Log {
 
         logMutexSem.release();        
     }
-    
-    public static synchronized void syncPrintln(String str) {
-    
-        System.out.println(str);
-    
-    }
-    
-    public static synchronized void syncPrintln(String str, Boolean verbose) {
-    
-        Date now = new Date();
-        String format = "HH:mm:ss.SSS dd-MM-yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        String formattedContent = verbose ? sdf.format(now) + " - " + str : str;
-        
-        System.out.println(formattedContent);
-        
-    }
-    
-    public static void println(String str, Boolean verbose) {
-    
-        Date now = new Date();
-        String format = "HH:mm:ss.SSS dd-MM-yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        String formattedContent = verbose ? sdf.format(now) + " - " + str : str;
-        
-        System.out.println(formattedContent);
-        
-    }
-    
-    
-    
 }

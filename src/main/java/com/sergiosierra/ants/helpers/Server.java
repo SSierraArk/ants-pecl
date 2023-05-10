@@ -12,17 +12,42 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
+ * <b>EN</b>: This class provides support for the client-server architecture part <br>
+ * of the application. (localhost will be used by default). <br><br>
+ * <b>ES</b>: Esta clase proporciona soporte para la parte cliente-servidor de la aplicación. <br>
+ * (Se empleará localhost por defecto).
  * @author ssierra
  */
 public class Server extends Thread {
     
+    /**
+     * <b>EN</b>: The application main controller.<br><br>
+     * <b>ES</b>: El controlador principal de la aplicación.
+     */
     private Controller controller;
+    
+    /**
+     * <b>EN</b>: {@code ServerSocket} object representing the server side of the <br>
+     * application.<br><br>
+     * <b>ES</b>: Objeto {@code ServerSocket} que representa el lado del servidor de
+     * <br> la aplicación.
+     */
     private ServerSocket serverSocket;
+    
+    /**
+     * <b>EN</b>: {@code Socket} object representing the client side of the <br>
+     * application.<br><br>
+     * <b>ES</b>: Objeto {@code Socket} que representa el lado del cliente de
+     * <br> la aplicación.
+     */
     private Socket clientSocket;
+    
+    /**
+     * <b>EN</b>: Port for the application to be deployed on. <br><br>
+     * <b>ES</b>: Puerto por el cual se desplegará la aplicación.
+     */
     private int port;
     
     public Server(Controller controller, int port) {
@@ -39,6 +64,13 @@ public class Server extends Thread {
     
     }
     
+    /**
+     * <b>EN</b>: This method sets everything up for the application to be served <br>
+     * and makes the server listen to a certain port passed in as a parameter. <br><br>
+     * <b>ES</b>: Este método prepara todo para que la aplicación pueda ser entregada <br>
+     * desde el servidor y lo pone en escucha en un determinado puerto que recibe como parámetro.
+     * @param port 
+     */
     public void serve(int port) {
     
         try {

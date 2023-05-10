@@ -4,20 +4,33 @@
  */
 package com.sergiosierra.ants.helpers;
 
+import com.sergiosierra.ants.interfaces.Pausable;
 import com.sergiosierra.ants.control.Controller;
 import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
-import java.util.ArrayList;
+import com.sergiosierra.ants.util.Config;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- *
+ * <b>EN</b>: This class provides methods to generate and start ant threads as per <br>
+ * the specification. <br><br>
+ * <b>ES</b>: Esta clase proporciona métodos para generar y ejecutar los hilos <br>
+ * correspondientes a las hormigas según la especificación.
  * @author ssierra
  */
 public class Seeder extends Thread implements Pausable {
     
+    /**
+     * <b>EN</b>: The main application controller. <br><br>
+     * <b>ES</b>: El controlador principal de la aplicación.
+     */
     private Controller controller;
+    
+    /**
+     * <b>EN</b>: Total amount of instances to be generated. <br><br>
+     * <b>ES</b>: Cantidad total de instancias a ser generadas.
+     */
     private int totalInstances;
     
     public Seeder(Controller controller, int totalInstances) {
@@ -55,13 +68,13 @@ public class Seeder extends Thread implements Pausable {
             
                 controller.spawnWorkerAnt().start();
                 System.out.println(workerList.get(workerList.size() - 1).getAntId());
-                Thread.sleep(800 + (int) (2700*Math.random()));
+                Thread.sleep(Config.SEEDER_MIN + (int) (Config.SEEDER_OFFSET*Math.random()));
                 if (workerList.size() % 3 == 0) {
 
                     controller.spawnSoldierAnt().start();
-                    Thread.sleep(800 + (int) (2700*Math.random()));
+                    Thread.sleep(Config.SEEDER_MIN + (int) (Config.SEEDER_OFFSET*Math.random()));
                     controller.spawnChildAnt().start();
-                    Thread.sleep(800 + (int) (2700*Math.random()));
+                    Thread.sleep(Config.SEEDER_MIN + (int) (Config.SEEDER_OFFSET*Math.random()));
                     i = i + 2;
             
                 }

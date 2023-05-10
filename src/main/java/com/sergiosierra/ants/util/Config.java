@@ -27,6 +27,12 @@ public class Config {
     
     public static final int PORT = 25565;
     
+    // Sleep timings.
+    
+    public static final int SEEDER_MIN = 800;
+    public static final int SEEDER_OFFSET = 2700;
+
+    
     public Config() {
         
         Date now = new Date();

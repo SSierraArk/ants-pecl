@@ -5,7 +5,7 @@
 package com.sergiosierra.ants.models;
 
 import com.sergiosierra.ants.control.Controller;
-import com.sergiosierra.ants.helpers.Pausable;
+import com.sergiosierra.ants.interfaces.Pausable;
 
 /**
  * <b>EN</b>: Parent class that models an ant. <br><br>
