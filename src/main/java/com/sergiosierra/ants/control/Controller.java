@@ -9,37 +9,65 @@ import com.sergiosierra.ants.models.ChildAnt;
 import com.sergiosierra.ants.models.Colony;
 import com.sergiosierra.ants.models.SoldierAnt;
 import com.sergiosierra.ants.models.WorkerAnt;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.HashMap;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
-import java.util.stream.Stream;
 
 
 /**
- *
+ * <b>EN</b>: This class provides control logic for the whole application. All other <br>
+ * model controllers can be both instantiated and retrieved from this. It also provides <br>
+ * some ready-to-use factory methods and some thread control mechanisms. <br><br>
+ * <b>ES</b>: Esta clase proporciona la lógica de control para la aplicación al completo. <br>
+ * Todos los otros controladores (ligados a modelos) pueden ser tanto instanciados como accedidos <br>
+ * desde esta misma. Además se incluyen algunos métodos de factoría listos para usar y mecanismos de <br>
+ * control de hilos.
  * @author ssierra
  */
 public class Controller {
     
-
+    /**
+     * <b>EN</b>: {@code ColonyController} linked to this main controller instance. <br><br>
+     * <b>ES</b>: {@code ColonyController} ligado a esta instancia de controlador principal.
+     */
     private ColonyController colonyController;
+    
+    /**
+     * <b>EN</b>: {@code AntController} linked to this main controller instance. <br><br>
+     * <b>ES</b>: {@code AntController} ligado a esta instancia de controlador principal.
+     */
     private AntController antController;
+    
+    /**
+     * <b>EN</b>: Semaphore that halts all {@code Pausable} instances until the the application is resumed. <br><br>
+     * <b>ES</b>: Semáforo que frena a todas las instancias {@code Pausable} hasta que la aplicación se reanude.
+     */
     private Semaphore pauseSem = new Semaphore(0, true);
     
     /**
-     * This cyclic barrier will control all soldier ants outside of the colony once a
-     * threat is detected.
+     * <b>EN</b>: This cyclic barrier will control all soldier ants outside of the colony once a <br>
+     * threat is detected. <br><br>
+     * <b>ES</b>: Esta barrera cíclica controlará a todas las hormigas soldado que se encuentren fuera <br>
+     * de la colonia una vez se haya detectado una amenaza.
      */
     private CyclicBarrier threatBarrier;
     
     /**
-     * Semaphore that halts all child ants until the threat is gone.
+     * <b>EN</b>: Semaphore that halts all child ants until the threat is gone. <br><br>
+     * <b>ES</b>: Semáforo que frena a todas las hormigas cría hasta que la amenaza desaparece.
      */
     private Semaphore threatSem =  new Semaphore(0, true);
     
+    /**
+     * <b>EN</b>: Status flag determining whether the application is paused or not. <br><br>
+     * <b>ES</b>: Bandera de estado que determina si la aplicación está o no en pausa.
+     */
     private boolean isPaused = false;
+    
+    /**
+     * <b>EN</b>: Status flag determining whether the colony is under attack or not. <br><br>
+     * <b>ES</b>: Bandera de estado que determina si la colonia está o no en espera.
+     */
     private boolean underAttack = false;
     
     
@@ -50,11 +78,11 @@ public class Controller {
         
     }
     
-    
-    
     /**
-     * This method will serve as an entry point for all requests made <br>
-     * to the application.
+     * <b>EN</b>: This method will serve as an entry point for all requests made <br>
+     * to the application. <br><br>
+     * <b>ES</b>: Este método servirá como punto de entrada para todas las peticiones que
+     * la aplicación reciba.
      * @param request
      * @return 
      */
@@ -198,8 +226,17 @@ public class Controller {
     
     }
     
+    
     // Factory methods
     
+    /**
+     * <b>EN</b>: Factory method for {@code WorkerAnt}. It automatically includes <br>
+     * the instance within the {@code AntController} respective data structure.<br><br>
+     * <b>ES</b>: Método de factoría para {@code WorkerAnt}. También incluye esta <br>
+     * instancia en de la estructura correspondiente dentro de {@code AntController}.
+     * @return
+     *      {@code WorkerAnt ant}
+     */
     public WorkerAnt spawnWorkerAnt() {
     
         WorkerAnt ant = new WorkerAnt(this);
@@ -208,6 +245,14 @@ public class Controller {
         
     }
     
+    /**
+     * <b>EN</b>: Factory method for {@code SoldierAnt}. It automatically includes <br>
+     * the instance within the {@code AntController} respective data structure.<br><br>
+     * <b>ES</b>: Método de factoría para {@code SoldierAnt}. También incluye esta <br>
+     * instancia en de la estructura correspondiente dentro de {@code AntController}.
+     * @return
+     *      {@code SoldierAnt ant}
+     */
     public SoldierAnt spawnSoldierAnt() {
     
         SoldierAnt ant = new SoldierAnt(this);
@@ -215,6 +260,14 @@ public class Controller {
         return ant;    
     }
     
+    /**
+     * <b>EN</b>: Factory method for {@code ChildAnt}. It automatically includes <br>
+     * the instance within the {@code AntController} respective data structure.<br><br>
+     * <b>ES</b>: Método de factoría para {@code ChildAnt}. También incluye esta <br>
+     * instancia en de la estructura correspondiente dentro de {@code AntController}.
+     * @return
+     *      {@code ChildAnt ant}
+     */
     public ChildAnt spawnChildAnt() {
     
         ChildAnt ant = new ChildAnt(this);
@@ -223,9 +276,11 @@ public class Controller {
     }
     
     /**
-     * This methods returns the {@code ColonyController} object linked to this
-     * {@code Controller} instance.
-     * @return ColonyController
+     * <b>EN</b>: This methods returns the {@code ColonyController} object linked to this
+     * {@code Controller} instance. <br><br>
+     * <b>ES</b>: Este método devuelve el {@code ColonyController} ligado a esta instancia de <br>
+     * {@code Controller}.
+     * @return ColonyController colonyController
      */
     public ColonyController colony() {
     
@@ -233,37 +288,69 @@ public class Controller {
     
     }
     
-    
+    /**
+     * <b>EN</b>: This methods returns the {@code AntController} object linked to this
+     * {@code Controller} instance. <br><br>
+     * <b>ES</b>: Este método devuelve el {@code AntController} ligado a esta instancia de <br>
+     * {@code Controller}.
+     * @return AntController antController
+     */
     public AntController ant() {
     
         return antController;
         
     }
     
+    /**
+     * <b>EN</b>: Getter for {@link Controller#pauseSem}. <br><br>
+     * <b>ES</b>: Getter de {@link Controller#pauseSem}.
+     * @return Semaphore pauseSem
+     */
     public Semaphore pauseSem() {
     
         return pauseSem;
         
     }
     
+    /**
+     * <b>EN</b>: Getter for {@link Controller#threatSem}. <br><br>
+     * <b>ES</b>: Getter de {@link Controller#threatSem}.
+     * @return Semaphore threatSem
+     */
     public Semaphore threatSem() {
     
         return threatSem;
         
     }
     
+    /**
+     * <b>EN</b>: Getter for {@link Controller#threatBarrier}. <br><br>
+     * <b>ES</b>: Getter de {@link Controller#threatBarrier}.
+     * @return CyclicBarrier threatBarrier
+     */
     public CyclicBarrier threatBarrier() {
     
         return threatBarrier;
     
     }
     
+    /**
+     * <b>EN</b>: Getter for {@link Controller#underAttack} flag. <br><br>
+     * <b>ES</b>: Getter de {@link Controller#underAttack} bandera de estado.
+     * @return boolean underAttack
+     */
     public boolean isUnderAttack() {
     
         return underAttack;
     
     }
     
+    /**
+     * <b>EN</b>: This method starts the attack (sets the underAttack flag to true) ONLY if <br>
+     * no attack is already taking place. <br><br>
+     * <b>ES</b>: Este método comienza el ataque en marcha (fija la bandera de estado underAttack a true) <br>
+     * SOLO si no había ningún ataque previamente en marcha.
+     */
     public void startAttack() {
     
         if (!underAttack && !ant().getSoldierList().isEmpty()) {
@@ -279,8 +366,10 @@ public class Controller {
     }
     
     /**
-     * This method stops the attack (sets the underAttack flag to false) and <br>
-     * releases all ants waiting for the threatSem Semaphore
+     * <b>EN</b>: This method stops the attack (sets the underAttack flag to false) and <br>
+     * releases all ants waiting for the threatSem Semaphore. <br><br>
+     * <b>ES</b>: Este método frena el ataque en marcha (fija la bandera de estado underAttack a false) y <br>
+     * libera a todas las hormigas que estuvieran esperando por el semáforo threatSem.
      */
     public void stopAttack() {
     
@@ -290,6 +379,11 @@ public class Controller {
         
     }
     
+    /**
+     * <b>EN</b>: Getter for {@link Controller#isPaused} flag. <br><br>
+     * <b>ES</b>: Getter de {@link Controller#isPaused} bandera de estado.
+     * @return boolean isPaused
+     */
     public boolean isPaused() {
     
         return isPaused;
@@ -297,9 +391,9 @@ public class Controller {
     }
     
     /**
-     * EN: This method will modify the controller "isPaused" flag to true. All
-     * objects implementing the Pausable interface will pause.
-     * ES: Este método modificará el valor del atributo "isPaused" a true. Todos
+     * <b>EN</b>: This method will modify the controller "isPaused" flag to true. All <br>
+     * objects implementing the Pausable interface will pause. <br><br>
+     * <b>ES</b>: Este método modificará el valor del atributo "isPaused" a true. Todos <br>
      * los objetos implementando la interfaz Pausable se pausarán.
      */
     public void pause() {
@@ -309,8 +403,8 @@ public class Controller {
     }
     
     /**
-     * EN: Resumes all paused threads and sets the isPaused flag to false.
-     * ES: Reanuda la ejecución de todos los hilos pausados y resetea el valor
+     * <b>EN</b>: Resumes all paused threads and sets the isPaused flag to false. <br><br>
+     * <b>ES</b>: Reanuda la ejecución de todos los hilos pausados y resetea el valor <br>
      * del flag "isPaused" a false.
      */
     public void resume() {

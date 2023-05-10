@@ -27,6 +27,13 @@ public class Config {
     
     public static final int PORT = 25565;
     
+    // Colony 
+    
+    public static final int COL_ENTRANCES = 1;
+    public static final int COL_EXITS = 2;
+    public static final int COL_FOODSTORAGE = 10;
+    public static final int COL_FOODSTORAGE_TIMEOUT = 2; // Seconds
+    
     // Sleep timings.
     
     public static final int SEEDER_MIN = 800;

@@ -29,7 +29,10 @@ import javax.swing.JTextField;
 import javax.swing.JViewport;
 
 /**
- *
+ * <b>EN</b>: This class provides view-specific control logic and acts as a wrapper <br>
+ * for these as well. It also includes some ready-to-use factory methods. <br><br>
+ * <b>ES</b>: Esta clase proporciona lógica de control relacionada a las vistas y actúa <br>
+ * como envoltura también. Además, incluye algunos métodos de factoría listos para usar.
  * @author ssierra
  */
 public class ViewController <T extends JFrame> extends Thread {
@@ -74,8 +77,6 @@ public class ViewController <T extends JFrame> extends Thread {
     }
     
     public ViewController(Class<T> frameClass) {
-    
-        
 
         // Set look and feel;
         try {
