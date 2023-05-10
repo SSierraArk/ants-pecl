@@ -108,6 +108,7 @@ public class SoldierAnt extends Ant {
             } catch(InterruptedException ie) {
             
                 handleThreat();
+                Thread.interrupted();
                 
             } catch (IOException ex) {
                 Logger.getLogger(SoldierAnt.class.getName()).log(Level.SEVERE, null, ex);

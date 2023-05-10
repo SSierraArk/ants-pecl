@@ -84,6 +84,7 @@ public class ChildAnt extends Ant {
             } catch (InterruptedException ie) {
 
                 handleThreat();
+                Thread.interrupted();
 
             } catch (IOException ex) {
                 Logger.getLogger(ChildAnt.class.getName()).log(Level.SEVERE, null, ex);
