@@ -72,8 +72,10 @@ public class Seeder extends Thread implements Pausable {
 
                     controller.spawnSoldierAnt().start();
                     Thread.sleep(Config.SEEDER_MIN + (int) (Config.SEEDER_OFFSET*Math.random()));
-                    controller.spawnChildAnt().start();
+                    ChildAnt ant = controller.spawnChildAnt();
+                    ant.start();
                     Thread.sleep(Config.SEEDER_MIN + (int) (Config.SEEDER_OFFSET*Math.random()));
+                    if (controller.isUnderAttack()) ant.interrupt();
                     i = i + 2;
             
                 }

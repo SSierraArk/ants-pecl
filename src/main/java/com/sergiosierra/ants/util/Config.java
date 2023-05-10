@@ -16,7 +16,7 @@ public class Config {
     // Application gobal variables
     
     public static final boolean LOG_FILE_ENABLED = true;
-    public static final boolean LOG_CONSOLE_ENABLED = true;
+    public static final boolean LOG_CONSOLE_ENABLED = false;
     public static final String LOG_FILENAME = "log"; 
     public static final String LOG_EXT = "txt"; 
     public static final String LOG_PATH = "./log/";
