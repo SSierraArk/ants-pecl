@@ -157,12 +157,12 @@ public class ViewController <T extends JFrame> extends Thread {
         return serverView;
     }
     
-    public static ViewController newClientView(Controller controller) {
+    public static ViewController newClientView(String ip, int port) {
         
         ViewController clientView = new ViewController(ClientView.class);
         // No controller to be attached this time as connection will take place
         // remotely.
-        clientView.attach("0.0.0.0", 25565);
+        clientView.attach(ip, port);
         try {
             clientView.socketOut = new PrintWriter(clientView.clientSocket.getOutputStream(), true);
             clientView.socketIn = new ObjectInputStream(clientView.clientSocket.getInputStream());

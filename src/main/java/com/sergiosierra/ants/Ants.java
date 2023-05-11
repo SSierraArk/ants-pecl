@@ -58,7 +58,7 @@ public class Ants {
         /**********************************************************************
         **********************************************************************/
         
-        //ViewController clientView = ViewController.newClientView(controller);
+        // ViewController clientView = ViewController.newClientView("0.0.0.0", 25565);
         // clientView.start();
         // clientView.prompt();
         
